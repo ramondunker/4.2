@@ -52,15 +52,6 @@ set mode static
 set ip 10.0.128.1 255.255.252.0
 set allowaccess https ping
 next
-edit VLAN_1314
-set vdom root
-set interface internal
-set type vlan
-set vlanid 1314
-set mode static
-set ip 10.1.3.1 255.255.255.0
-set allowaccess https ping
-next
 edit VLAN_1320
 set vdom root
 set interface internal
@@ -115,10 +106,6 @@ next
 edit VLAN_1313_Net
 set type ipmask
 set subnet 10.0.128.0 255.255.252.0
-next
-edit VLAN_1314_Net
-set type ipmask
-set subnet 10.1.3.0 255.255.255.0
 next
 edit VLAN_1320_Net
 set type ipmask
