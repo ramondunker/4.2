@@ -1,0 +1,113 @@
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname HW-SW-2
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$Cuc8$VsX8yMZ9BxrsNUQmiARoQ0
+!
+username boa
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+!
+!
+!
+ip domain-name harderwijk.uni
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+!
+ip http server
+ip http secure-server
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+no vstack
+!
+line con 0
+ password 7 130D161C0F04053C222A2F
+ login
+line vty 0 4
+ password 7 130D161C0F04053C222A2F
+ login local
+ transport input ssh
+line vty 5 15
+ password 7 130D161C0F04053C222A2F
+ login local
+ transport input ssh
+!
+end
+
