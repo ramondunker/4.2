@@ -1,0 +1,10 @@
+Switch:
+no system ignore startupconfig switch all
+Config-register 0x102
+Write mem
+
+
+Router:
+no system ignore startupconfig switch all
+Config-register 0x2102
+Write mem
