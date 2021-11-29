@@ -1,0 +1,152 @@
+Current configuration : 2191 bytes
+!
+! Last configuration change at 21:34:10 UTC Mon Nov 29 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname PUT-R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$gy0H$s7UIp0ii7xEKtqvZXJ.T5.
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name Harderwijk.uni
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+cts logging verbose
+!
+!
+license udi pid CISCO1941/K9 sn FCZ2048406F
+license boot module c1900 technology-package securityk9
+!
+!
+username boa password 7 1101180B131A0A1A0D242C
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description Link to Harderwijk-Router
+ ip address 192.168.0.129 255.255.255.240
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.1
+ encapsulation dot1Q 1301 native
+!
+interface GigabitEthernet0/1.12
+ encapsulation dot1Q 1312
+ ip address 10.1.2.1 255.255.255.0
+!
+interface GigabitEthernet0/1.30
+ encapsulation dot1Q 1330
+ ip address 10.3.0.1 255.255.255.0
+!
+interface GigabitEthernet0/1.31
+ encapsulation dot1Q 1331
+ ip address 10.3.1.1 255.255.255.0
+!
+interface Serial0/0/0
+ bandwidth 64
+ ip address 192.168.0.66 255.255.255.240
+ shutdown
+ clock rate 64000
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+router ospf 1
+ network 10.3.0.0 0.0.0.255 area 0
+ network 10.3.1.0 0.0.0.255 area 0
+ network 192.168.0.64 0.0.0.15 area 0
+ network 192.168.0.128 0.0.0.15 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ password 7 0503070125444F1F100B10
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ password 7 000C120800530A10062F4B
+ login local
+ transport input ssh
+line vty 5 1370
+ password 7 000C120800530A10062F4B
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
+
+
+
