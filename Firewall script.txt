@@ -1,0 +1,145 @@
+#
+# Indien je de firewall wilt resetten naar factory default:
+#	exec factoryreset
+#let op dan moet je ook een wachtwoord opgeven
+#voor de systemen die ik gereset heb heb ik het volgende wchtwoord gehanteerd:
+# FG60egroep<nr>   bv FG60egroep2
+#
+# onderstaande config is van groep8
+# zou je deze willen gebruiken voor bv groep 3
+# dan zoek en vervang 18 door 3
+#
+# er worden 10 vlans aangemaakt
+# alleen het 1e en de 2e vlan zijn verder geconfigureerd zodat
+# ze onderling kunnen communiceren en met de buitenwereld kunnen communiceren
+#
+# op het eind is de faultgatway toegevoegd
+#
+config system interface
+edit VLAN_1301
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1301
+set mode static
+set ip 10.0.0.1 255.255.255.0
+set allowaccess https ping
+next
+edit VLAN_1311
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1311
+set mode static
+set ip 10.1.0.1 255.255.255.0
+set allowaccess https ping
+next
+edit VLAN_1312
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1312
+set mode static
+set ip 10.1.2.1 255.255.255.0
+set allowaccess https ping
+next
+edit VLAN_1313
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1313
+set mode static
+set ip 10.0.128.1 255.255.252.0
+set allowaccess https ping
+next
+edit VLAN_1314
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1314
+set mode static
+set ip 10.1.3.1 255.255.255.0
+set allowaccess https ping
+next
+edit VLAN_1320
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1320
+set mode static
+set ip 10.2.0.1 255.255.255.0
+set allowaccess https ping
+next
+edit VLAN_1321
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1321
+set mode static
+set ip 10.2.1.1 255.255.255.0
+set allowaccess https ping
+next
+edit VLAN_1330
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1330
+set mode static
+set ip 10.3.0.1 255.255.255.0
+set allowaccess https ping
+next
+edit VLAN_1331
+set vdom root
+set interface internal
+set type vlan
+set vlanid 1331
+set mode static
+set ip 10.3.1.1 255.255.255.0
+set allowaccess https ping
+next
+end
+ 
+config firewall address
+edit VLAN_1301_Net
+set type ipmask
+set subnet 10.0.0.0 255.255.255.0
+next
+edit VLAN_1311_Net
+set type ipmask
+set subnet 10.1.0.0 255.255.255.0
+next
+edit VLAN_1312_Net
+set type ipmask
+set subnet 10.1.2.0 255.255.255.0
+next
+edit VLAN_1313_Net
+set type ipmask
+set subnet 10.0.128.0 255.255.252.0
+next
+edit VLAN_1314_Net
+set type ipmask
+set subnet 10.1.3.0 255.255.255.0
+next
+edit VLAN_1320_Net
+set type ipmask
+set subnet 10.2.0.0 255.255.255.0
+next
+edit VLAN_1321_Net
+set type ipmask
+set subnet 10.2.1.0 255.255.255.0
+next
+edit VLAN_1330_Net
+set type ipmask
+set subnet 10.3.0.0 255.255.255.0
+next
+edit VLAN_1331_Net
+set type ipmask
+set subnet 10.3.1.0 255.255.255.0
+next
+end
+
+config router static
+edit 1
+set gateway 145.37.235.1
+set device "wan1"	
+end
