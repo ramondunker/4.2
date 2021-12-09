@@ -1,3 +1,10 @@
+HW-SW-2#show run
+Building configuration...
+
+Current configuration : 3888 bytes
+!
+! Last configuration change at 01:20:01 UTC Wed Mar 3 1993
+!
 version 15.2
 no service pad
 service timestamps debug datetime msec
@@ -11,9 +18,10 @@ boot-end-marker
 !
 enable secret 5 $1$Cuc8$VsX8yMZ9BxrsNUQmiARoQ0
 !
-username boa
+username boa password 7 1101180B131A0A1A0D242C
 no aaa new-model
 system mtu routing 1500
+vtp mode transparent
 !
 !
 !
@@ -23,12 +31,70 @@ system mtu routing 1500
 !
 ip domain-name harderwijk.uni
 !
+no setup express
+!
+crypto pki trustpoint TP-self-signed-2808336384
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2808336384
+ revocation-check none
+ rsakeypair TP-self-signed-2808336384
 !
 !
+crypto pki certificate chain TP-self-signed-2808336384
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 32383038 33333633 3834301E 170D3933 30333031 30303030
+  35375A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 38303833
+  33363338 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  81009552 377ECE6F 5505F490 A5C446F3 3A36FDC5 F6CD2FC8 B4653C73 644630E3
+  4AC3BF7F 45D0EA60 D9C890FB B0C9417F F7E5FD1D 28E74EAC 03D9F371 C8F196EB
+  7635C98D 961ED62F 200D85F7 6F9AD750 FA7E7817 C39E1C9F A02D40B9 F6BAA174
+  2DBFD05D FBA9A061 C25DD656 51653D1E 1CD56FC7 09D235A4 1C71B18F 5D2D057A
+  05ED0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603
+  551D2304 18301680 1432D810 5FC7715B C1D91481 F3F14C33 0278EAFE C1301D06
+  03551D0E 04160414 32D8105F C7715BC1 D91481F3 F14C3302 78EAFEC1 300D0609
+  2A864886 F70D0101 05050003 8181006E 4F8DE516 CEE62E9D C9970F61 708AD27F
+  400C2600 7D14B432 C571515A A64EF89E E0F16B53 7BB0BF8B F8D517C6 C600E357
+  2643CB4A B8A6D4BC EA1FD162 D639CE40 7B099DB5 EE400EC2 D84434E1 179ED2D1
+  1FBD8FF0 DC07D2F5 FA8208A2 D82A2FFE 90547D5D 85B98675 EF6D5C2C A7B65A7C
+  58CD1A6E 5C374C08 76C01C66 A2C6A0
+        quit
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
 vlan internal allocation policy ascending
+!
+vlan 1302
+ name AD/DC/NPS/DHCP/SIEM
+!
+vlan 1303
+ name Squid
+!
+vlan 1304
+ name backup
+!
+vlan 1305
+ name Logging&Monitoring
+!
+vlan 1306
+ name moodle
+!
+vlan 1307
+ name Exchange
+!
+vlan 1310
+ name untagg
+!
+vlan 1311
+ name personeel
+!
+vlan 1312
+ name studenten
+!
+vlan 1319
+ name management
 !
 !
 !
@@ -36,8 +102,14 @@ vlan internal allocation policy ascending
 !
 !
 interface FastEthernet0/1
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1307,1310-1312,1319
+ switchport mode trunk
 !
 interface FastEthernet0/2
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1307,1310-1312,1319
+ switchport mode trunk
 !
 interface FastEthernet0/3
 !
@@ -88,6 +160,11 @@ interface GigabitEthernet0/1
 interface GigabitEthernet0/2
 !
 interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan1319
+ ip address 10.13.19.5 255.255.255.0
 !
 ip http server
 ip http secure-server
@@ -110,4 +187,5 @@ line vty 5 15
  transport input ssh
 !
 end
+
 
