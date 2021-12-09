@@ -1,5 +1,9 @@
+ 
+Building configuration...
+
+Current configuration : 5132 bytes
 !
-! Last configuration change at 09:50:11 UTC Fri Nov 26 2021 by boa
+! Last configuration change at 15:30:05 UTC Fri Dec 3 2021 by boa
 !
 version 15.2
 no service pad
@@ -38,6 +42,7 @@ ip domain-name Harderwijk.uni
 !
 qos queue-softmax-multiplier 100
 vtp mode transparent
+no setup express
 !
 !
 diagnostic bootup level minimal
@@ -49,32 +54,47 @@ redundancy
  mode sso
 !
 !
-vlan 1301
- name Native
+vlan 1302
+ name AD/DC/NPS/DHCP/SIEM
 !
-vlan 1312
- name Management
+vlan 1303
+ name SQUID
+!
+vlan 1304
+ name BACKUP
+!
+vlan 1305
+ name LOGGING&MONITORING
+!
+vlan 1306
+ name MOODLE
+!
+vlan 1307
+ name EXCHANGE
 !
 vlan 1320
- name Nunspeet-Studenten
+ name Put-Native
 !
 vlan 1321
- name Nunsteet-Personeel
+ name Put-Personeel
+!
+vlan 1324
+ name Put-Studenten
+!
+vlan 1329
+ name Put-Management
 !
 vlan 1330
- name Putten-Studenten
+ name Nun-Native
 !
 vlan 1331
- name Putten-Personeel
+ name Nun-Personeel
 !
-vlan 1340
- name Interlink NUN-HAR
+vlan 1332
+ name Nunspeet-Studenten
 !
-vlan 1341
- name Interlink NUN-PUT
-!
-vlan 1342
- name Interlink PUT-HAR
+vlan 1339
+ name Nun-Management
 !
 !
 class-map match-any non-client-nrt-class
@@ -103,101 +123,105 @@ interface GigabitEthernet0/0
 !
 interface GigabitEthernet1/0/1
  switchport access vlan 1320
- switchport trunk native vlan 1301
- switchport trunk allowed vlan 1301,1312,1320,1321
+ switchport trunk native vlan 1330
+ switchport trunk allowed vlan 1302-1307,1330-1332,1339
  switchport mode trunk
 !
 interface GigabitEthernet1/0/2
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/3
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/4
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/5
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/6
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/7
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/8
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/9
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/10
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/11
- switchport access vlan 1320
+ switchport access vlan 1332
  switchport mode access
 !
 interface GigabitEthernet1/0/12
- switchport access vlan 1312
+ switchport access vlan 1332
+ switchport trunk native vlan 1301
+ switchport trunk allowed vlan 1301,1321,1322
  switchport mode access
 !
 interface GigabitEthernet1/0/13
- switchport trunk native vlan 1301
- switchport trunk allowed vlan 1301,1312,1330,1331
+ switchport trunk native vlan 1320
+ switchport trunk allowed vlan 1302-1307,1320,1321,1324,1329
  switchport mode trunk
 !
 interface GigabitEthernet1/0/14
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/15
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/16
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/17
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/18
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/19
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/20
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/21
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/22
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/23
- switchport access vlan 1330
+ switchport access vlan 1324
  switchport mode access
 !
 interface GigabitEthernet1/0/24
- switchport access vlan 1312
+ switchport access vlan 1324
+ switchport trunk native vlan 1301
+ switchport trunk allowed vlan 1330-1332
  switchport mode access
 !
 interface GigabitEthernet1/1/1
@@ -212,8 +236,13 @@ interface Vlan1
  no ip address
  shutdown
 !
-interface Vlan1312
- ip address 10.1.2.14 255.255.255.0
+interface Vlan1329
+ description Interface-VLAN-1329-PUTTEN-MANAGEMENT
+ ip address 10.13.29.3 255.255.255.0
+!
+interface Vlan1339
+ description Interface-VLAN-1339-NUNSPEET-MANAGEMENT
+ ip address 10.13.39.3 255.255.255.0
 !
 ip forward-protocol nd
 ip http server
@@ -269,4 +298,5 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
+
 
