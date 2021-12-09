@@ -1,0 +1,368 @@
+Building configuration...
+
+Current configuration : 2603 bytes
+!
+! Last configuration change at 18:45:19 UTC Thu Dec 9 2021 by boa
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname PUT-R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$gy0H$s7UIp0ii7xEKtqvZXJ.T5.
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name Harderwijk.uni
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+cts logging verbose
+!
+!
+license udi pid CISCO1941/K9 sn FCZ2048406F
+license boot module c1900 technology-package securityk9
+!
+!
+username boa password 7 1101180B131A0A1A0D242C
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description Link to Harderwijk-Router
+ ip address 192.168.0.129 255.255.255.240
+ ip ospf priority 250
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.20
+ description SubInterface-VLAN-1320
+ encapsulation dot1Q 1320 native
+ ip address 10.13.20.1 255.255.255.0
+ ip helper-address 10.13.2.10
+!
+interface GigabitEthernet0/1.21
+ description SubInterface-VLAN-1321
+ encapsulation dot1Q 1321
+ ip address 10.13.21.1 255.255.255.0
+ ip helper-address 10.13.2.10
+!
+interface GigabitEthernet0/1.24
+ description SubInterface-VLAN-1324
+ encapsulation dot1Q 1324
+ ip address 10.13.24.1 255.255.252.0
+ ip helper-address 10.13.2.10
+!
+interface GigabitEthernet0/1.29
+ description SubInterface-VLAN-1329
+ encapsulation dot1Q 1329
+ ip address 10.13.29.1 255.255.255.0
+ ip helper-address 10.13.2.10
+!
+interface Serial0/0/0
+ bandwidth 64
+ ip address 192.168.0.66 255.255.255.240
+ clock rate 9600
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+router ospf 1
+ router-id 2.2.2.2
+ network 10.13.20.0 0.0.0.255 area 0
+ network 10.13.21.0 0.0.0.255 area 0
+ network 10.13.24.0 0.0.3.255 area 0
+ network 10.13.29.0 0.0.0.255 area 0
+ network 192.168.0.64 0.0.0.15 area 0
+ network 192.168.0.128 0.0.0.15 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ password 7 0503070125444F1F100B10
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ password 7 09444F071D0D1604020203
+ login local
+ transport input ssh
+line vty 5 1370
+ password 7 09444F071D0D1604020203
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
+
+PUT-R1#
+PUT-R1#exit
+
+[Connection to 192.168.0.129 closed by foreign host]
+HW-SW3(config)#ssh -l boa 192.168.0.33
+                ^
+% Invalid input detected at '^' marker.
+
+HW-SW3(config)#do ssh -l boa 192.168.0.33
+Password:
+
+NUN-R1>en
+Password:
+NUN-R1#copy runnin
+NUN-R1#copy running-config star
+NUN-R1#copy running-config startup-config
+Destination filename [startup-config]?
+Building configuration...
+[OK]
+NUN-R1#show run
+Building configuration...
+
+Current configuration : 2888 bytes
+!
+! Last configuration change at 17:46:41 UTC Thu Dec 9 2021 by boa
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname NUN-R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$KHFN$nPRZqVMb0vehjzU9s2WUb1
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name Harderwijk.uni
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+cts logging verbose
+!
+!
+license udi pid CISCO1941/K9 sn FCZ2048B07C
+license boot module c1900 technology-package securityk9
+!
+!
+vtp mode transparent
+vtp version 2
+username boa password 7 060E0E2F4846080F0C1915
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+!
+interface GigabitEthernet0/0
+ description Interlink Nunspeet-Harderwijk
+ ip address 192.168.0.33 255.255.255.240
+ ip ospf priority 0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.20
+ shutdown
+!
+interface GigabitEthernet0/1.21
+ shutdown
+!
+interface GigabitEthernet0/1.22
+ shutdown
+!
+interface GigabitEthernet0/1.23
+ shutdown
+!
+interface GigabitEthernet0/1.30
+ encapsulation dot1Q 1330 native
+ ip address 10.13.30.1 255.255.255.0
+ ip helper-address 10.13.2.10
+!
+interface GigabitEthernet0/1.31
+ encapsulation dot1Q 1331
+ ip address 10.13.31.1 255.255.255.0
+ ip helper-address 10.13.2.10
+!
+interface GigabitEthernet0/1.32
+ description SubInterface-VLAN1332-Harderwijk-Studenten
+ encapsulation dot1Q 1332
+ ip address 10.13.32.1 255.255.252.0
+ ip helper-address 10.13.2.10
+!
+interface GigabitEthernet0/1.39
+ encapsulation dot1Q 1339
+ ip address 10.13.39.1 255.255.255.0
+ ip helper-address 10.13.2.10
+!
+interface Serial0/0/0
+ description Interlink Nunspeet-Putten
+ ip address 192.168.0.65 255.255.255.240
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/1/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+router ospf 1
+ router-id 3.3.3.3
+ network 10.13.30.0 0.0.0.255 area 0
+ network 10.13.31.0 0.0.0.255 area 0
+ network 10.13.32.0 0.0.3.255 area 0
+ network 10.13.39.0 0.0.0.255 area 0
+ network 192.168.0.32 0.0.0.15 area 0
+ network 192.168.0.64 0.0.0.15 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ password 7 09444F071D0D1604020203
+ login
+ transport preferred none
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ password 7 011B070A5F030719284249
+ login local
+ transport input ssh
+line vty 5 1370
+ password 7 011B070A5F030719284249
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
+
+
+
