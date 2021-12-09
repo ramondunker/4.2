@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 2581 bytes
+Current configuration : 2603 bytes
 !
-! Last configuration change at 20:45:44 UTC Mon Dec 6 2021 by boa
+! Last configuration change at 18:45:19 UTC Thu Dec 9 2021 by boa
 !
 version 15.4
 service timestamps debug datetime msec
@@ -73,6 +73,7 @@ interface Embedded-Service-Engine0/0
 interface GigabitEthernet0/0
  description Link to Harderwijk-Router
  ip address 192.168.0.129 255.255.255.240
+ ip ospf priority 250
  duplex auto
  speed auto
 !
@@ -159,4 +160,6 @@ line vty 5 1370
 scheduler allocate 20000 1000
 !
 end
+
+
 
