@@ -1,9 +1,8 @@
-HW-SW3#show run
 Building configuration...
 
-Current configuration : 5200 bytes
+Current configuration : 5350 bytes
 !
-! Last configuration change at 04:11:45 UTC Fri Mar 5 1993
+! Last configuration change at 23:18:51 UTC Wed Mar 10 1993 by boa
 !
 version 15.2
 no service pad
@@ -17,8 +16,9 @@ boot-start-marker
 boot-end-marker
 !
 enable secret 5 $1$nD2E$ClUBjOh8LyN9gwqVygUsg1
+enable password 7 1211041916030D12232523
 !
-username boa
+username boa secret 5 $1$AToN$cY4q14PG3KhPvMTSHPqOz.
 no aaa new-model
 system mtu routing 1500
 vtp mode transparent
@@ -61,8 +61,10 @@ crypto pki certificate chain TP-self-signed-2808309888
   8A2FA5E3 47079787 34A69E37 3AFAED99 36226C9B FF819FBA CE2FA2CE EAAA4AD4
   6FA604DD E71FE5D2 BE3FC1DD 2417D4
         quit
+!
 spanning-tree mode pvst
 spanning-tree extend system-id
+spanning-tree vlan 1302-1307,1310-1312,1319 priority 57344
 !
 vlan internal allocation policy ascending
 !
@@ -227,14 +229,15 @@ line con 0
  password 7 1211041916030D12232523
  login
 line vty 0 4
- password 7 1211041916030D12232523
+ password 7 070720424A0118131E1C0C
  login local
  transport input ssh
 line vty 5 15
- password 7 1211041916030D12232523
+ password 7 070720424A0118131E1C0C
  login local
  transport input ssh
 !
 end
+
 
 
