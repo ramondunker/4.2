@@ -1,6 +1,8 @@
-Current configuration : 2191 bytes
+Building configuration...
+
+Current configuration : 2581 bytes
 !
-! Last configuration change at 21:34:10 UTC Mon Nov 29 2021
+! Last configuration change at 20:45:44 UTC Mon Dec 6 2021 by boa
 !
 version 15.4
 service timestamps debug datetime msec
@@ -76,30 +78,37 @@ interface GigabitEthernet0/0
 !
 interface GigabitEthernet0/1
  no ip address
- shutdown
  duplex auto
  speed auto
 !
-interface GigabitEthernet0/1.1
- encapsulation dot1Q 1301 native
+interface GigabitEthernet0/1.20
+ description SubInterface-VLAN-1320
+ encapsulation dot1Q 1320 native
+ ip address 10.13.20.1 255.255.255.0
+ ip helper-address 10.13.2.10
 !
-interface GigabitEthernet0/1.12
- encapsulation dot1Q 1312
- ip address 10.1.2.1 255.255.255.0
+interface GigabitEthernet0/1.21
+ description SubInterface-VLAN-1321
+ encapsulation dot1Q 1321
+ ip address 10.13.21.1 255.255.255.0
+ ip helper-address 10.13.2.10
 !
-interface GigabitEthernet0/1.30
- encapsulation dot1Q 1330
- ip address 10.3.0.1 255.255.255.0
+interface GigabitEthernet0/1.24
+ description SubInterface-VLAN-1324
+ encapsulation dot1Q 1324
+ ip address 10.13.24.1 255.255.252.0
+ ip helper-address 10.13.2.10
 !
-interface GigabitEthernet0/1.31
- encapsulation dot1Q 1331
- ip address 10.3.1.1 255.255.255.0
+interface GigabitEthernet0/1.29
+ description SubInterface-VLAN-1329
+ encapsulation dot1Q 1329
+ ip address 10.13.29.1 255.255.255.0
+ ip helper-address 10.13.2.10
 !
 interface Serial0/0/0
  bandwidth 64
  ip address 192.168.0.66 255.255.255.240
- shutdown
- clock rate 64000
+ clock rate 9600
 !
 interface Serial0/0/1
  no ip address
@@ -107,8 +116,11 @@ interface Serial0/0/1
  clock rate 2000000
 !
 router ospf 1
- network 10.3.0.0 0.0.0.255 area 0
- network 10.3.1.0 0.0.0.255 area 0
+ router-id 2.2.2.2
+ network 10.13.20.0 0.0.0.255 area 0
+ network 10.13.21.0 0.0.0.255 area 0
+ network 10.13.24.0 0.0.3.255 area 0
+ network 10.13.29.0 0.0.0.255 area 0
  network 192.168.0.64 0.0.0.15 area 0
  network 192.168.0.128 0.0.0.15 area 0
 !
@@ -136,17 +148,15 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- password 7 000C120800530A10062F4B
+ password 7 09444F071D0D1604020203
  login local
  transport input ssh
 line vty 5 1370
- password 7 000C120800530A10062F4B
+ password 7 09444F071D0D1604020203
  login local
  transport input ssh
 !
 scheduler allocate 20000 1000
 !
 end
-
-
 
