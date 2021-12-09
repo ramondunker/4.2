@@ -1,5 +1,8 @@
+Building configuration...
+
+Current configuration : 6377 bytes
 !
-! Last configuration change at 14:19:50 UTC Tue Nov 30 2021
+! Last configuration change at 12:04:18 UTC Mon Dec 6 2021 by boa
 !
 version 15.2
 no service pad
@@ -51,17 +54,35 @@ redundancy
  mode sso
 !
 !
-vlan 1301
- name Native
+vlan 1302
+ name AD/DC/NPS/DHCP/SIEM
+!
+vlan 1303
+ name SQUID
+!
+vlan 1304
+ name BACKUP
+!
+vlan 1305
+ name LOGGING&MONITORING
+!
+vlan 1306
+ name MOODLE
+!
+vlan 1307
+ name EXCHANGE
+!
+vlan 1310
+ name Native-Vlan
 !
 vlan 1311
  name Harderwijk-Personeel
 !
 vlan 1312
- name management
-!
-vlan 1313
  name Harderwijk-Studenten
+!
+vlan 1319
+ name Harderwijk-Manage
 !
 !
 class-map match-any non-client-nrt-class
@@ -89,103 +110,106 @@ interface GigabitEthernet0/0
  negotiation auto
 !
 interface GigabitEthernet1/0/1
- switchport trunk native vlan 1301
- switchport trunk allowed vlan 1301,1311-1314
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1307,1310-1312,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/2
- switchport trunk native vlan 1301
- switchport trunk allowed vlan 1301,1311-1314
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1307,1310-1312,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/3
- switchport trunk native vlan 1301
- switchport trunk allowed vlan 1301,1311-1314
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1307,1310-1312,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/4
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/5
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/6
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/7
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/8
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/9
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/10
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/11
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/12
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/13
  no switchport
  ip address 192.168.0.130 255.255.255.240
+ ip ospf priority 200
 !
 interface GigabitEthernet1/0/14
  no switchport
  ip address 192.168.0.34 255.255.255.240
+ ip ospf priority 200
 !
 interface GigabitEthernet1/0/15
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/16
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/17
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/18
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/19
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/20
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/21
- switchport access vlan 1313
- switchport mode access
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1307,1310-1312,1319
+ switchport mode trunk
 !
 interface GigabitEthernet1/0/22
- switchport access vlan 1313
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/23
- description link to firewall
+ description Link-to-Firewall
  no switchport
- ip address 10.1.3.1 255.255.255.252
+ ip address 10.13.50.1 255.255.255.0
 !
 interface GigabitEthernet1/0/24
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/1/1
@@ -200,35 +224,70 @@ interface Vlan1
  no ip address
  shutdown
 !
+interface Vlan1302
+ description Interface-VLAN-1302 AD/DC/NPS/DHCP/SIEM
+ ip address 10.13.2.1 255.255.255.0
+!
+interface Vlan1303
+ description Interface-VLAN-1303 Squid
+ ip address 10.13.3.1 255.255.255.0
+!
+interface Vlan1304
+ description Interface-VLAN-1304-Backup
+ ip address 10.13.4.1 255.255.255.0
+!
+interface Vlan1305
+ description Interface-VLAN-1305-Loggin&Monitoring
+ ip address 10.13.5.1 255.255.255.0
+!
+interface Vlan1306
+ description Interface-VLAN-1306-Moodle
+ ip address 10.13.6.1 255.255.255.0
+!
+interface Vlan1307
+ description Interface-VLAN-1307-EXCHANGE
+ ip address 10.13.7.1 255.255.255.0
+!
+interface Vlan1310
+ description Harderwijk-NATIVE
+ ip address 10.13.10.1 255.255.255.0
+ ip helper-address 10.13.2.10
+!
 interface Vlan1311
- description Vlan-Interface-Harderwijk-Personeel
- ip address 10.1.0.1 255.255.255.0
+ description Harderwijk-Personeel
+ ip address 10.13.11.1 255.255.255.0
+ ip helper-address 10.13.2.10
 !
 interface Vlan1312
- description Vlan-Interface-Harderwijk-Management
- ip address 10.1.2.1 255.255.255.0
+ ip address 10.13.12.1 255.255.252.0
+ ip helper-address 10.13.2.10
 !
-interface Vlan1313
- ip address 10.0.128.1 255.255.252.0
+interface Vlan1319
+ description Interface-VLAN-1319-Harderwijk-Management
+ ip address 10.13.19.1 255.255.255.0
+ ip helper-address 10.13.2.10
 !
 router ospf 1
  router-id 1.1.1.1
- network 10.0.128.0 0.0.3.255 area 0
- network 10.1.0.0 0.0.0.255 area 0
- network 10.1.2.0 0.0.0.255 area 0
- network 10.1.3.0 0.0.0.255 area 0
+ network 10.13.2.0 0.0.0.255 area 0
+ network 10.13.3.0 0.0.0.255 area 0
+ network 10.13.4.0 0.0.0.255 area 0
+ network 10.13.5.0 0.0.0.255 area 0
+ network 10.13.6.0 0.0.0.255 area 0
+ network 10.13.7.0 0.0.0.255 area 0
+ network 10.13.10.0 0.0.0.255 area 0
+ network 10.13.11.0 0.0.0.255 area 0
+ network 10.13.12.0 0.0.3.255 area 0
+ network 10.13.19.0 0.0.0.255 area 0
+ network 10.13.50.0 0.0.0.255 area 0
  network 192.168.0.32 0.0.0.15 area 0
  network 192.168.0.128 0.0.0.15 area 0
- default-information originate
 !
 ip forward-protocol nd
 ip http server
 ip http authentication local
 ip http secure-server
 !
-ip ssh time-out 60
-ip ssh authentication-retries 2
-ip ssh version 2
 !
 !
 !
@@ -236,7 +295,7 @@ ip ssh version 2
 !
 !
 line con 0
- password 7 1101180B131A0A1A0D242C
+ password 7 020E05550F0E0E3745400E
  login
  stopbits 1
 line aux 0
@@ -253,6 +312,7 @@ line vty 5 15
 wsma agent exec
  profile httplistener
  profile httpslistener
+ profile httpslistentp
 !
 wsma agent config
  profile httplistener
@@ -275,3 +335,4 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
+
