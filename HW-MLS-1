@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 11321 bytes
+Current configuration : 11354 bytes
 !
-! Last configuration change at 12:53:34 UTC Fri Dec 10 2021 by boa
+! Last configuration change at 14:02:50 UTC Fri Dec 10 2021 by boa
 !
 version 15.2
 no service pad
@@ -32,6 +32,7 @@ aaa new-model
 !
 !
 aaa authentication login default group radius local
+aaa authorization exec default group radius if-authenticated
 !
 !
 !
@@ -355,7 +356,7 @@ snmp-server enable traps call-home message-send-fail server-fail
 snmp-server enable traps rf
 snmp-server enable traps memory
 snmp-server enable traps cpu threshold
-snmp-server enable traps wireless bsnMobileStation bsnAccessPoint bsnRogue bsn80                                                                                                                                                             211Security bsnAutoRF bsnGeneral SI mobility mfp RRM AP rogue client
+snmp-server enable traps wireless bsnMobileStation bsnAccessPoint bsnRogue bsn80211Security bsnAutoRF
 snmp-server enable traps tty
 snmp-server enable traps eigrp
 snmp-server enable traps ospf state-change
@@ -381,13 +382,13 @@ snmp-server enable traps stackwise
 snmp-server enable traps port-security
 snmp-server enable traps fru-ctrl
 snmp-server enable traps entity
-snmp-server enable traps trustsec-sxp conn-srcaddr-err msg-parse-err conn-config                                                                                                                                                             -err binding-err conn-up conn-down binding-expn-fail oper-nodeid-change binding-                                                                                                                                                             conflict
+snmp-server enable traps trustsec-sxp conn-srcaddr-err msg-parse-err conn-config-err binding-err conn
 snmp-server enable traps trustsec-server radius-server provision-secret
-snmp-server enable traps trustsec authz-file-error cache-file-error keystore-fil                                                                                                                                                             e-error keystore-sync-fail random-number-fail src-entropy-fail
-snmp-server enable traps trustsec-interface unauthorized sap-fail authc-fail sup                                                                                                                                                             plicant-fail authz-fail
+snmp-server enable traps trustsec authz-file-error cache-file-error keystore-file-error keystore-sync
+snmp-server enable traps trustsec-interface unauthorized sap-fail authc-fail supplicant-fail authz-fa
 snmp-server enable traps trustsec-policy peer-policy-updated authz-sgacl-fail
 snmp-server enable traps bgp cbgp2
-snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-c                                                                                                                                                             hange inconsistency
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
 snmp-server enable traps config-copy
 snmp-server enable traps config
 snmp-server enable traps config-ctid
@@ -399,10 +400,10 @@ snmp-server enable traps local-auth
 snmp-server enable traps msdp
 snmp-server enable traps ospfv3 state-change
 snmp-server enable traps ospfv3 errors
-snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-messa                                                                                                                                                             ge
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
 snmp-server enable traps vstack
 snmp-server enable traps bridge newroot topologychange
-snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistenc                                                                                                                                                             y
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
 snmp-server enable traps syslog
 snmp-server enable traps ipsla
 snmp-server enable traps ike policy add
@@ -425,8 +426,6 @@ snmp-server host 10.13.5.10 ORATRAP  syslog
 snmp-server host 10.13.5.10 syslog
 !
 radius-server host 10.13.2.11 key 7 141F1305080C2B3D2D2634
-!
-radius server HW-AD-Radius
 !
 !
 !
