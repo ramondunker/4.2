@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 5350 bytes
+Current configuration : 12250 bytes
 !
-! Last configuration change at 23:18:51 UTC Wed Mar 10 1993 by boa
+! Last configuration change at 21:54:07 UTC Sun Mar 21 1993 by boa
 !
 version 15.2
 no service pad
@@ -19,7 +19,25 @@ enable secret 5 $1$nD2E$ClUBjOh8LyN9gwqVygUsg1
 enable password 7 1211041916030D12232523
 !
 username boa secret 5 $1$AToN$cY4q14PG3KhPvMTSHPqOz.
-no aaa new-model
+aaa new-model
+!
+!
+aaa group server radius AD1
+ server name AD1
+!
+aaa authentication login default group AD1 local
+aaa authentication dot1x default group AD1 local
+aaa authorization exec default group AD1 local
+aaa accounting dot1x default start-stop group AD1
+aaa accounting exec default
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
 system mtu routing 1500
 vtp mode transparent
 !
@@ -29,6 +47,9 @@ vtp mode transparent
 !
 !
 !
+ip dhcp snooping vlan 1310-1312,1319-1321,1324,1329-1332,1339-1342,1350
+no ip dhcp snooping information option
+ip dhcp snooping
 ip domain-name harderwijk.uni
 !
 no setup express
@@ -61,6 +82,7 @@ crypto pki certificate chain TP-self-signed-2808309888
   8A2FA5E3 47079787 34A69E37 3AFAED99 36226C9B FF819FBA CE2FA2CE EAAA4AD4
   6FA604DD E71FE5D2 BE3FC1DD 2417D4
         quit
+dot1x system-auth-control
 !
 spanning-tree mode pvst
 spanning-tree extend system-id
@@ -107,99 +129,299 @@ interface FastEthernet0/1
  switchport trunk native vlan 1310
  switchport trunk allowed vlan 1302-1307,1310-1312,1319
  switchport mode trunk
+ ip dhcp snooping trust
 !
 interface FastEthernet0/2
  switchport trunk native vlan 1310
  switchport trunk allowed vlan 1302-1307,1310-1312,1319
  switchport mode trunk
+ ip dhcp snooping trust
 !
 interface FastEthernet0/3
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/4
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/5
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/6
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/7
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/8
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/9
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/10
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/11
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/12
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/13
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/14
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/15
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/16
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/17
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/18
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/19
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/20
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/21
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/22
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/23
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface FastEthernet0/24
- switchport access vlan 1313
+ switchport access vlan 1312
  switchport mode access
+ switchport port-security maximum 10
+ switchport port-security violation  restrict
+ switchport port-security aging time 10
+ switchport port-security aging static
+ shutdown
+ authentication port-control auto
+ dot1x pae authenticator
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface GigabitEthernet0/1
  switchport access vlan 1313
@@ -223,21 +445,21 @@ ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
 !
+!
+radius server AD1
+ address ipv4 10.13.2.11 auth-port 1812 acct-port 1813
+ key 7 151A0A0200222A32213D32
+!
+!
 no vstack
 !
 line con 0
  password 7 1211041916030D12232523
- login
 line vty 0 4
  password 7 070720424A0118131E1C0C
- login local
  transport input ssh
 line vty 5 15
  password 7 070720424A0118131E1C0C
- login local
  transport input ssh
 !
 end
-
-
-
