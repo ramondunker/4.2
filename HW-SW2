@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 5122 bytes
+Current configuration : 9887 bytes
 !
-! Last configuration change at 19:33:19 UTC Sat Mar 6 1993 by boa
+! Last configuration change at 01:24:45 UTC Tue Mar 16 1993 by LORI
 !
 version 15.2
 no service pad
@@ -18,7 +18,25 @@ boot-end-marker
 enable secret 5 $1$Cuc8$VsX8yMZ9BxrsNUQmiARoQ0
 !
 username boa password 7 1101180B131A0A1A0D242C
-no aaa new-model
+aaa new-model
+!
+!
+aaa group server radius AD1
+ server name AD1
+!
+aaa authentication login default group AD1 local
+aaa authentication dot1x default group AD1 local
+aaa authorization exec default group AD1 local
+aaa accounting dot1x default start-stop group AD1
+aaa accounting exec default
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
 system mtu routing 1500
 vtp mode transparent
 !
@@ -28,6 +46,9 @@ vtp mode transparent
 !
 !
 !
+ip dhcp snooping vlan 1310-1312,1319-1321,1324,1329-1332,1339-1342,1350
+no ip dhcp snooping information option
+ip dhcp snooping
 ip domain-name harderwijk.uni
 !
 no setup express
@@ -60,8 +81,10 @@ crypto pki certificate chain TP-self-signed-2808336384
   1FBD8FF0 DC07D2F5 FA8208A2 D82A2FFE 90547D5D 85B98675 EF6D5C2C A7B65A7C
   58CD1A6E 5C374C08 76C01C66 A2C6A0
         quit
+dot1x system-auth-control
 !
 spanning-tree mode pvst
+spanning-tree portfast bpduguard default
 spanning-tree extend system-id
 spanning-tree vlan 1302-1307,1310-1312,1319 priority 61440
 !
@@ -106,99 +129,233 @@ interface FastEthernet0/1
  switchport trunk native vlan 1310
  switchport trunk allowed vlan 1302-1307,1310-1312,1319
  switchport mode trunk
+ ip dhcp snooping trust
 !
 interface FastEthernet0/2
  switchport trunk native vlan 1310
  switchport trunk allowed vlan 1302-1307,1310-1312,1319
  switchport mode trunk
+ ip dhcp snooping trust
 !
 interface FastEthernet0/3
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/4
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/5
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/6
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/7
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/8
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/9
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/10
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/11
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/12
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/13
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/14
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/15
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/16
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/17
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/18
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/19
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/20
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/21
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/22
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/23
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface FastEthernet0/24
- switchport access vlan 1319
+ switchport access vlan 1312
  switchport mode access
+ authentication port-control auto
+ authentication timer reauthenticate 600
+ authentication timer inactivity 300
+ dot1x pae authenticator
+ dot1x timeout tx-period 2
+ dot1x max-reauth-req 1
 !
 interface GigabitEthernet0/1
 !
@@ -217,21 +374,21 @@ ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
 !
+!
+radius server AD1
+ address ipv4 10.13.2.11 auth-port 1812 acct-port 1813
+ key 7 000C120800530A10062F4B
+!
+!
 no vstack
 !
 line con 0
  password 7 130D161C0F04053C222A2F
- login
 line vty 0 4
  password 7 130D161C0F04053C222A2F
- login local
  transport input ssh
 line vty 5 15
  password 7 130D161C0F04053C222A2F
- login local
  transport input ssh
 !
 end
-
-
-
