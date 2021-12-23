@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 11732 bytes
+Current configuration : 11722 bytes
 !
-! Last configuration change at 00:29:10 UTC Thu Mar 18 1993 by LORI
+! Last configuration change at 16:36:43 UTC Wed Mar 24 1993 by LORI
 !
 version 15.2
 no service pad
@@ -132,7 +132,7 @@ interface FastEthernet0/1
  ip dhcp snooping trust
 !
 interface FastEthernet0/2
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -144,7 +144,7 @@ interface FastEthernet0/2
  spanning-tree portfast
 !
 interface FastEthernet0/3
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -156,7 +156,7 @@ interface FastEthernet0/3
  spanning-tree portfast
 !
 interface FastEthernet0/4
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -167,7 +167,7 @@ interface FastEthernet0/4
  spanning-tree portfast
 !
 interface FastEthernet0/5
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -179,7 +179,7 @@ interface FastEthernet0/5
  spanning-tree portfast
 !
 interface FastEthernet0/6
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -191,7 +191,7 @@ interface FastEthernet0/6
  spanning-tree portfast
 !
 interface FastEthernet0/7
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -203,7 +203,7 @@ interface FastEthernet0/7
  spanning-tree portfast
 !
 interface FastEthernet0/8
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -215,7 +215,7 @@ interface FastEthernet0/8
  spanning-tree portfast
 !
 interface FastEthernet0/9
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -227,7 +227,7 @@ interface FastEthernet0/9
  spanning-tree portfast
 !
 interface FastEthernet0/10
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -239,7 +239,7 @@ interface FastEthernet0/10
  spanning-tree portfast
 !
 interface FastEthernet0/11
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -251,7 +251,7 @@ interface FastEthernet0/11
  spanning-tree portfast
 !
 interface FastEthernet0/12
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -263,7 +263,7 @@ interface FastEthernet0/12
  spanning-tree portfast
 !
 interface FastEthernet0/13
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -275,7 +275,7 @@ interface FastEthernet0/13
  spanning-tree portfast
 !
 interface FastEthernet0/14
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -287,7 +287,7 @@ interface FastEthernet0/14
  spanning-tree portfast
 !
 interface FastEthernet0/15
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -299,7 +299,7 @@ interface FastEthernet0/15
  spanning-tree portfast
 !
 interface FastEthernet0/16
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -311,7 +311,7 @@ interface FastEthernet0/16
  spanning-tree portfast
 !
 interface FastEthernet0/17
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -323,7 +323,7 @@ interface FastEthernet0/17
  spanning-tree portfast
 !
 interface FastEthernet0/18
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -335,7 +335,7 @@ interface FastEthernet0/18
  spanning-tree portfast
 !
 interface FastEthernet0/19
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -347,7 +347,7 @@ interface FastEthernet0/19
  spanning-tree portfast
 !
 interface FastEthernet0/20
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -359,7 +359,7 @@ interface FastEthernet0/20
  spanning-tree portfast
 !
 interface FastEthernet0/21
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -371,7 +371,7 @@ interface FastEthernet0/21
  spanning-tree portfast
 !
 interface FastEthernet0/22
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -383,7 +383,7 @@ interface FastEthernet0/22
  spanning-tree portfast
 !
 interface FastEthernet0/23
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
@@ -395,13 +395,12 @@ interface FastEthernet0/23
  spanning-tree portfast
 !
 interface FastEthernet0/24
- switchport access vlan 1312
+ switchport access vlan 1319
  switchport mode access
  switchport port-security maximum 10
  switchport port-security violation  restrict
  switchport port-security aging time 10
  switchport port-security aging static
- shutdown
  authentication port-control auto
  dot1x pae authenticator
  spanning-tree portfast
