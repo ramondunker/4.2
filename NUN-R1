@@ -1,21 +1,21 @@
 Building configuration...
 
-Current configuration : 3398 bytes
+Current configuration : 2887 bytes
 !
-! Last configuration change at 23:32:42 UTC Wed Dec 15 2021 by boa
+! Last configuration change at 00:07:21 UTC Thu Dec 16 2021 by boa
 !
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
 service password-encryption
 !
-hostname NUN-R1
+hostname PUT-R1
 !
 boot-start-marker
 boot-end-marker
 !
 !
-enable secret 5 $1$KHFN$nPRZqVMb0vehjzU9s2WUb1
+enable secret 5 $1$gy0H$s7UIp0ii7xEKtqvZXJ.T5.
 !
 aaa new-model
 !
@@ -47,9 +47,6 @@ aaa session-id common
 !
 !
 !
-ip dhcp snooping vlan 1310-1312,1319-1321,1324,1329-1332,1339-1342,1350
-no ip dhcp snooping information option
-ip dhcp snooping
 ip domain name Harderwijk.uni
 ip cef
 no ipv6 cef
@@ -59,13 +56,11 @@ multilink bundle-name authenticated
 cts logging verbose
 !
 !
-license udi pid CISCO1941/K9 sn FCZ2048B07C
+license udi pid CISCO1941/K9 sn FCZ2048406F
 license boot module c1900 technology-package securityk9
 !
 !
-vtp mode transparent
-vtp version 2
-username boa password 7 060E0E2F4846080F0C1915
+username boa password 7 1101180B131A0A1A0D242C
 !
 redundancy
 !
@@ -86,16 +81,14 @@ ip ssh version 2
 !
 !
 !
-interface Loopback0
- ip address 10.13.1.253 255.255.255.255
-!
 interface Embedded-Service-Engine0/0
  no ip address
+ shutdown
 !
 interface GigabitEthernet0/0
- description Interlink Nunspeet-Harderwijk
- ip address 192.168.0.33 255.255.255.240
- ip ospf priority 0
+ description Link to Harderwijk-Router
+ ip address 192.168.0.129 255.255.255.240
+ ip ospf priority 250
  duplex auto
  speed auto
 !
@@ -105,66 +98,47 @@ interface GigabitEthernet0/1
  speed auto
 !
 interface GigabitEthernet0/1.20
- shutdown
+ description SubInterface-VLAN-1320
+ encapsulation dot1Q 1320 native
+ ip address 10.13.20.1 255.255.255.0
+ ip helper-address 10.13.2.10
 !
 interface GigabitEthernet0/1.21
- shutdown
-!
-interface GigabitEthernet0/1.22
- shutdown
-!
-interface GigabitEthernet0/1.23
- shutdown
-!
-interface GigabitEthernet0/1.30
- encapsulation dot1Q 1330 native
- ip address 10.13.30.1 255.255.255.0
+ description SubInterface-VLAN-1321
+ encapsulation dot1Q 1321
+ ip address 10.13.21.1 255.255.255.0
  ip helper-address 10.13.2.10
 !
-interface GigabitEthernet0/1.31
- encapsulation dot1Q 1331
- ip address 10.13.31.1 255.255.255.0
+interface GigabitEthernet0/1.24
+ description SubInterface-VLAN-1324
+ encapsulation dot1Q 1324
+ ip address 10.13.24.1 255.255.252.0
  ip helper-address 10.13.2.10
 !
-interface GigabitEthernet0/1.32
- description SubInterface-VLAN1332-Harderwijk-Studenten
- encapsulation dot1Q 1332
- ip address 10.13.32.1 255.255.252.0
- ip helper-address 10.13.2.10
-!
-interface GigabitEthernet0/1.39
- encapsulation dot1Q 1339
- ip address 10.13.39.1 255.255.255.0
+interface GigabitEthernet0/1.29
+ description SubInterface-VLAN-1329
+ encapsulation dot1Q 1329
+ ip address 10.13.29.1 255.255.255.0
  ip helper-address 10.13.2.10
 !
 interface Serial0/0/0
- description Interlink Nunspeet-Putten
- ip address 192.168.0.65 255.255.255.240
+ bandwidth 64
+ ip address 192.168.0.66 255.255.255.240
+ clock rate 9600
 !
 interface Serial0/0/1
  no ip address
  shutdown
  clock rate 2000000
 !
-interface Serial0/1/0
- no ip address
- shutdown
- clock rate 2000000
-!
-interface Serial0/1/1
- no ip address
- shutdown
- clock rate 2000000
-!
 router ospf 1
- router-id 3.3.3.3
- network 10.13.1.253 0.0.0.0 area 0
- network 10.13.30.0 0.0.0.255 area 0
- network 10.13.31.0 0.0.0.255 area 0
- network 10.13.32.0 0.0.3.255 area 0
- network 10.13.39.0 0.0.0.255 area 0
- network 192.168.0.32 0.0.0.15 area 0
+ router-id 2.2.2.2
+ network 10.13.20.0 0.0.0.255 area 0
+ network 10.13.21.0 0.0.0.255 area 0
+ network 10.13.24.0 0.0.3.255 area 0
+ network 10.13.29.0 0.0.0.255 area 0
  network 192.168.0.64 0.0.0.15 area 0
+ network 192.168.0.128 0.0.0.15 area 0
 !
 ip forward-protocol nd
 !
@@ -177,7 +151,7 @@ no ip http secure-server
 !
 radius server AD1
  address ipv4 10.13.2.11 auth-port 1812 acct-port 1813
- key 7 060E0E2F4846080F0C1915
+ key 7 030C5A050207205A47071E
 !
 !
 !
@@ -186,8 +160,7 @@ control-plane
 !
 !
 line con 0
- password 7 09444F071D0D1604020203
- transport preferred none
+ password 7 0503070125444F1F100B10
 line aux 0
 line 2
  no activation-character
@@ -196,10 +169,10 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- password 7 011B070A5F030719284249
+ password 7 09444F071D0D1604020203
  transport input ssh
 line vty 5 1370
- password 7 011B070A5F030719284249
+ password 7 09444F071D0D1604020203
  transport input ssh
 !
 scheduler allocate 20000 1000
