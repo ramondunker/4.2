@@ -1,0 +1,137 @@
+Building configuration...
+
+Current configuration : 2010 bytes
+!
+! Last configuration change at 02:00:25 UTC Mon Mar 1 1993
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname HW-SW1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$f3vA$jXpVi.jixy8Zn8oi42eIN/
+!
+username beheer password 7 10660817011F131D050A2D7A65
+no aaa new-model
+system mtu routing 1500
+vtp mode transparent
+!
+!
+!
+!
+!
+!
+!
+ip domain-name ijsselstreek.uni
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 1310
+ name Native Harderwijk
+!
+vlan 1311
+ name Docenten Harderwijk
+!
+vlan 1312
+ name Studenten Harderwijk
+!
+vlan 1313
+ name Gasten Harderwijk
+!
+vlan 1319
+ name Management Harderwijk
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1310-1313,1319
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1310-1313,1319
+ switchport mode trunk
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip http server
+ip http secure-server
+!
+no vstack
+!
+line con 0
+line vty 0 4
+ password 7 153A0A0200222A32213D327352
+ login local
+ transport input ssh
+line vty 5 15
+ password 7 153A0A0200222A32213D327352
+ login local
+ transport input ssh
+!
+end
