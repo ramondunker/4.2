@@ -1,6 +1,6 @@
 Building configuration...
 
-Current configuration : 2010 bytes
+Current configuration : 2124 bytes
 !
 ! Last configuration change at 02:00:25 UTC Mon Mar 1 1993
 !
@@ -121,10 +121,15 @@ interface Vlan1
 !
 ip http server
 ip http secure-server
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
 !
 no vstack
 !
 line con 0
+ password 7 10660817011F131D050A2D7A65
+ login
 line vty 0 4
  password 7 153A0A0200222A32213D327352
  login local
