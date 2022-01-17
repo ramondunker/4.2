@@ -1,0 +1,128 @@
+Building configuration...
+
+Current configuration : 1592 bytes
+!
+! Last configuration change at 19:26:52 UTC Mon Jan 17 2022
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname PUT-R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$gMbe$ZIc1scWJddK9lzFhh2l/R/
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name ijsselstreek.uni
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+cts logging verbose
+!
+!
+license udi pid CISCO1941/K9 sn FCZ2048406F
+license boot module c1900 technology-package securityk9
+!
+!
+username beheer password 7 08094D400D1104011B050B556B
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ no ip address
+ clock rate 2000000
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ password 7 09644F071D0D16040202037B6A
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ password 7 1231041916030D122325237972
+ login local
+ transport input ssh
+line vty 5 15
+ password 7 1231041916030D122325237972
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
