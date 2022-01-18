@@ -4,14 +4,15 @@
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
-no service password-encryption
+service password-encryption
 !
-hostname EDGE-R2
+hostname Edge-R2
 !
 boot-start-marker
 boot-end-marker
 !
 !
+enable secret 5 $1$cadN$h3UQBJiFGUfrPA7.OVdsA1
 !
 no aaa new-model
 !
@@ -28,6 +29,7 @@ no aaa new-model
 !
 !
 !
+ip domain name ijsselstreek.uni
 ip cef
 no ipv6 cef
 !
@@ -39,6 +41,7 @@ cts logging verbose
 license udi pid CISCO1941/K9 sn FCZ2048B08H
 !
 !
+username beheer password 7 1231041916030D122325237972
 !
 redundancy
 !
@@ -46,6 +49,9 @@ redundancy
 !
 !
 !
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
 !
 !
 !
@@ -81,6 +87,8 @@ interface Serial0/0/1
 !
 router ospf 1
  network 192.168.0.100 0.0.0.3 area 0
+ network 192.168.0.112 0.0.0.3 area 0
+ network 192.168.0.116 0.0.0.3 area 0
 !
 ip forward-protocol nd
 !
@@ -96,6 +104,8 @@ control-plane
 !
 !
 line con 0
+ password 7 1121180B131A0A1A0D242C7569
+ login
 line aux 0
 line 2
  no activation-character
@@ -104,8 +114,13 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- login
- transport input none
+ password 7 08094D400D1104011B050B556B
+ login local
+ transport input ssh
+line vty 5 15
+ password 7 08094D400D1104011B050B556B
+ login local
+ transport input ssh
 !
 scheduler allocate 20000 1000
 !
