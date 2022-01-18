@@ -1,5 +1,6 @@
+Current configuration : 4595 bytes
 !
-! Last configuration change at 09:23:00 UTC Tue Jan 18 2022
+! Last configuration change at 11:30:17 UTC Tue Jan 18 2022 by beheer
 !
 version 15.2
 no service pad
@@ -24,6 +25,7 @@ vrf definition Mgmt-vrf
 !
 enable secret 5 $1$TKUq$i2yrZiXO.EW9MDsXGP3rk0
 !
+username beheer password 7 0523070125444F1F100B10434A
 no aaa new-model
 switch 1 provision ws-c3650-24ts
 !
@@ -31,6 +33,7 @@ switch 1 provision ws-c3650-24ts
 !
 !
 !
+ip routing
 !
 ip domain-name ijsselstreek.uni
 !
@@ -62,6 +65,27 @@ vlan 1305
 !
 vlan 1306
  name IJSS-MOODLE/MOODLE2
+!
+vlan 1307
+ name IJSS-MAIL
+!
+vlan 1308
+ name IJSS-WEB
+!
+vlan 1310
+ name Native-Harderwijk
+!
+vlan 1311
+ name Docenten-Harderwijk
+!
+vlan 1312
+ name Studenten-Harderwijk
+!
+vlan 1313
+ name Gasten-Harderwijk
+!
+vlan 1319
+ name Manage-Harderwijk
 !
 !
 class-map match-any non-client-nrt-class
@@ -110,16 +134,23 @@ interface GigabitEthernet1/0/8
 interface GigabitEthernet1/0/9
 !
 interface GigabitEthernet1/0/10
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1308,1310-1313,1319
+ switchport mode trunk
 !
 interface GigabitEthernet1/0/11
 !
 interface GigabitEthernet1/0/12
 !
 interface GigabitEthernet1/0/13
+ no switchport
+ ip address 192.168.13.5 255.255.255.252
 !
 interface GigabitEthernet1/0/14
 !
 interface GigabitEthernet1/0/15
+ no switchport
+ ip address 192.168.0.113 255.255.255.252
 !
 interface GigabitEthernet1/0/16
 !
@@ -138,6 +169,7 @@ interface GigabitEthernet1/0/22
 interface GigabitEthernet1/0/23
 !
 interface GigabitEthernet1/0/24
+ switchport access vlan 1319
 !
 interface GigabitEthernet1/1/1
 !
@@ -149,6 +181,52 @@ interface GigabitEthernet1/1/4
 !
 interface Vlan1
  no ip address
+!
+interface Vlan1302
+ description Gateway 1302
+ ip address 13.2.0.2 255.255.255.0
+!
+interface Vlan1303
+ description Gateway vlan 1303
+ ip address 13.3.0.2 255.255.255.0
+!
+interface Vlan1304
+ description Gateway vlan 1304
+ ip address 13.4.0.2 255.255.255.0
+!
+interface Vlan1305
+ ip address 13.5.0.2 255.255.255.0
+!
+interface Vlan1306
+ ip address 13.6.0.2 255.255.255.0
+!
+interface Vlan1307
+ ip address 13.7.0.2 255.255.255.0
+!
+interface Vlan1308
+ ip address 13.8.0.2 255.255.255.0
+!
+interface Vlan1310
+ ip address 13.10.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Vlan1311
+ ip address 13.11.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Vlan1312
+ ip address 13.12.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Vlan1313
+ ip address 13.13.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Vlan1319
+ ip address 13.19.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+router ospf 1
 !
 ip forward-protocol nd
 ip http server
@@ -204,4 +282,3 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
-
