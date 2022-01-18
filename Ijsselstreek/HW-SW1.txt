@@ -1,6 +1,3 @@
-Building configuration...
-
-Current configuration : 2124 bytes
 !
 ! Last configuration change at 02:00:25 UTC Mon Mar 1 1993
 !
