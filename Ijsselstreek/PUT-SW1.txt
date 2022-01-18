@@ -7,7 +7,7 @@ service timestamps debug datetime msec
 service timestamps log datetime msec
 service password-encryption
 !
-hostname HW-SW2
+hostname PUT-SW1
 !
 boot-start-marker
 boot-end-marker
@@ -34,20 +34,20 @@ spanning-tree extend system-id
 !
 vlan internal allocation policy ascending
 !
-vlan 1310
- name Native Harderwijk
+vlan 1320
+ name Native Putten
 !
-vlan 1311
- name Docenten Harderwijk
+vlan 1321
+ name Docenten Putten
 !
-vlan 1312
- name Studenten Harderwijk
+vlan 1322
+ name Studenten Putten
 !
-vlan 1313
- name Gasten Harderwijk
+vlan 1323
+ name Gasten Putten
 !
-vlan 1319
- name Management Harderwijk
+vlan 1329
+ name Management Putten
 !
 !
 !
@@ -55,14 +55,11 @@ vlan 1319
 !
 !
 interface FastEthernet0/1
- switchport trunk native vlan 1310
- switchport trunk allowed vlan 1310-1313,1319
+ switchport trunk native vlan 1320
+ switchport trunk allowed vlan 1320-1323,1329
  switchport mode trunk
 !
 interface FastEthernet0/2
- switchport trunk native vlan 1310
- switchport trunk allowed vlan 1310-1313,1319
- switchport mode trunk
 !
 interface FastEthernet0/3
 !
