@@ -89,7 +89,7 @@ interface GigabitEthernet0/1.1820
 interface GigabitEthernet0/1.1821
  description SubInterface-VLAN1821-Epe-Docenten
  encapsulation dot1Q 1821
- ip address 18.31.0.1 255.255.255.0
+ ip address 18.21.0.1 255.255.255.0
  ip helper-address 13.2.0.12
 !
 interface GigabitEthernet0/1.1822
