@@ -1,0 +1,126 @@
+!
+! Last configuration change at 20:17:30 UTC Tue Jan 18 2022
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname Edge-R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$/yLd$mHVX7TtKOXpYvJVuanCGg1
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name ijsselstreek.uni
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+cts logging verbose
+!
+!
+license udi pid CISCO1941/K9 sn FCZ2048B07M
+!
+!
+username beheer password 7 013B070A5F0307192842495858
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 192.168.0.105 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 192.168.0.109 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 192.168.0.101 255.255.255.252
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+router ospf 1
+ network 192.168.0.100 0.0.0.3 area 0
+ network 192.168.0.104 0.0.0.3 area 0
+ network 192.168.0.108 0.0.0.3 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ password 7 022E05550F0E0E3745400E4844
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ password 7 013B070A5F0307192842495858
+ login local
+ transport input ssh
+line vty 5 15
+ password 7 013B070A5F0307192842495858
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
