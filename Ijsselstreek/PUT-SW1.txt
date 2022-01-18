@@ -113,6 +113,10 @@ interface Vlan1
  no ip address
  shutdown
 !
+interface Vlan 1329
+ ip address 13.39.0.100 255.255.255.0
+ no shutdown
+!
 ip http server
 ip http secure-server
 ip ssh time-out 60
