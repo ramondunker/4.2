@@ -83,7 +83,7 @@ interface GigabitEthernet0/1
 interface GigabitEthernet0/1.1820
  description SubInterface-VLAN1820-Epe-Native
  encapsulation dot1Q 1820 native
- ip address 18.30.0.1 255.255.255.0
+ ip address 18.20.0.1 255.255.255.0
  ip helper-address 13.2.0.12
 !
 interface GigabitEthernet0/1.1821
@@ -95,19 +95,19 @@ interface GigabitEthernet0/1.1821
 interface GigabitEthernet0/1.1822
  description SubInterface-VLAN1822-Epe-Studenten
  encapsulation dot1Q 1822
- ip address 18.32.0.1 255.255.255.0
+ ip address 18.22.0.1 255.255.255.0
  ip helper-address 13.2.0.12
 !
 interface GigabitEthernet0/1.1823
  description SubInterface-VLAN1823-Epe-Gasten
  encapsulation dot1Q 1823
- ip address 18.33.0.1 255.255.255.0
+ ip address 18.23.0.1 255.255.255.0
  ip helper-address 13.2.0.12
 !
 interface GigabitEthernet0/1.1829
  description SubInterface-VLAN1829-Epe-Management
  encapsulation dot1Q 1829
- ip address 18.39.0.1 255.255.255.0
+ ip address 18.29.0.1 255.255.255.0
  ip helper-address 13.2.0.12
 !
 interface Serial0/0/0
