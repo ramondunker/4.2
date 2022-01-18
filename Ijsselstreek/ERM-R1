@@ -1,0 +1,160 @@
+!
+! Last configuration change at 17:05:04 UTC Tue Jan 18 2022
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname ERM-R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$Mchi$2OhthWgHsSEmAvSKj4j8o/
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name ijsselstreek.uni
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+cts logging verbose
+!
+!
+license udi pid CISCO1941/K9 sn FCZ2048B07C
+license boot module c1900 technology-package securityk9
+!
+!
+vtp mode transparent
+vtp version 2
+username beheer password 7 0523070125444F1F100B10434A
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 192.168.18.6 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.1830
+ description SubInterface-VLAN1830-Ermelo-Native
+ encapsulation dot1Q 1830 native
+ ip address 18.30.0.1 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface GigabitEthernet0/1.1831
+ description SubInterface-VLAN1831-Ermelo-Docenten
+ encapsulation dot1Q 1831
+ ip address 18.31.0.1 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface GigabitEthernet0/1.1832
+ description SubInterface-VLAN1832-Ermelo-Studenten
+ encapsulation dot1Q 1332
+ ip address 18.32.0.1 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface GigabitEthernet0/1.1833
+ description SubInterface-VLAN1833-Ermelo-Gasten
+ encapsulation dot1Q 1833
+ ip address 18.33.0.1 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface GigabitEthernet0/1.1839
+ description SubInterface-VLAN1839-Harderwijk-Management
+ encapsulation dot1Q 1339
+ ip address 18.39.0.1 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Serial0/0/0
+ ip address 192.168.18.10 255.255.255.252
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/1/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ password 7 08094D400D1104011B050B556B
+ login
+line aux 0
+line 2
+line vty 0 4
+ password 7 022E05550F0E0E3745400E4844
+ login local
+ transport input ssh
+line vty 5 15
+ password 7 022E05550F0E0E3745400E4844
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
