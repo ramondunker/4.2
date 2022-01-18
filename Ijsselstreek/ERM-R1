@@ -105,7 +105,7 @@ interface GigabitEthernet0/1.1833
  ip helper-address 13.2.0.12
 !
 interface GigabitEthernet0/1.1839
- description SubInterface-VLAN1839-Harderwijk-Management
+ description SubInterface-VLAN1839-Ermelo-Management
  encapsulation dot1Q 1339
  ip address 18.39.0.1 255.255.255.0
  ip helper-address 13.2.0.12
