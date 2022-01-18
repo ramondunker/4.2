@@ -114,7 +114,7 @@ interface Vlan1
  shutdown
 !
 interface Vlan 1329
- ip address 13.39.0.100 255.255.255.0
+ ip address 13.29.0.100 255.255.255.0
  no shutdown
 !
 ip http server
