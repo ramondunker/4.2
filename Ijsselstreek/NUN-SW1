@@ -110,6 +110,11 @@ interface GigabitEthernet0/1
 interface GigabitEthernet0/2
 !
 interface Vlan1
+ shutdown
+!
+interface Vlan 1339
+ ip address 13.39.0.2 255.255.255.0
+ no shutdown
 !
 ip http server
 ip http secure-server
