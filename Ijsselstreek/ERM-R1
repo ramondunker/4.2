@@ -94,7 +94,7 @@ interface GigabitEthernet0/1.1831
 !
 interface GigabitEthernet0/1.1832
  description SubInterface-VLAN1832-Ermelo-Studenten
- encapsulation dot1Q 1332
+ encapsulation dot1Q 1832
  ip address 18.32.0.1 255.255.255.0
  ip helper-address 13.2.0.12
 !
@@ -106,7 +106,7 @@ interface GigabitEthernet0/1.1833
 !
 interface GigabitEthernet0/1.1839
  description SubInterface-VLAN1839-Ermelo-Management
- encapsulation dot1Q 1339
+ encapsulation dot1Q 1839
  ip address 18.39.0.1 255.255.255.0
  ip helper-address 13.2.0.12
 !
