@@ -1,6 +1,4 @@
 !
-! Last configuration change at 17:05:04 UTC Tue Jan 18 2022
-!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -128,6 +126,10 @@ interface Serial0/1/1
  shutdown
  clock rate 2000000
 !
+router ospf 1
+ network 192.168.13.4 0.0.0.3 area 13
+ network 192.168.13.8 0.0.0.3 area 13
+!
 ip forward-protocol nd
 !
 no ip http server
@@ -146,6 +148,11 @@ line con 0
  login
 line aux 0
 line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
 line vty 0 4
  password 7 022E05550F0E0E3745400E4844
  login local
