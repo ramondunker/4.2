@@ -287,3 +287,320 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
+
+HW-MLS2(config)#copy
+HW-MLS2(config)#copy r
+HW-MLS2(config)#copy run
+HW-MLS2(config)#copy run
+HW-MLS2(config)#copy run
+HW-MLS2(config)#do copy run
+HW-MLS2(config)#do copy running-config start
+HW-MLS2(config)#do copy running-config startup-config
+Destination filename [startup-config]?
+Building configuration...
+Compressed configuration from 4774 bytes to 2413 bytes[OK]
+HW-MLS2(config)#router ospf 1
+HW-MLS2(config-router)#no network 192.168.13.4 0.0.0.3 area 3
+HW-MLS2(config-router)#network 192.168.13.4 0.0.0.3 area 13
+HW-MLS2(config-router)#do show run | include network
+ network 192.168.0.112 0.0.0.3 area 0
+ network 192.168.13.4 0.0.0.3 area 13
+HW-MLS2(config-router)#exit
+HW-MLS2(config)#do copy runn
+HW-MLS2(config)#do copy running-config start
+HW-MLS2(config)#do copy running-config startup-config
+Destination filename [startup-config]?
+Building configuration...
+Compressed configuration from 4775 bytes to 2411 bytes[OK]
+HW-MLS2(config)#do show run
+Building configuration...
+
+Current configuration : 4775 bytes
+!
+! Last configuration change at 07:49:24 UTC Wed Jan 19 2022
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname HW-MLS2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-vrf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+enable secret 5 $1$TKUq$i2yrZiXO.EW9MDsXGP3rk0
+!
+username beheer password 7 0523070125444F1F100B10434A
+no aaa new-model
+switch 1 provision ws-c3650-24ts
+!
+!
+!
+!
+!
+ip routing
+!
+ip domain-name ijsselstreek.uni
+!
+!
+qos queue-softmax-multiplier 100
+vtp mode transparent
+!
+!
+diagnostic bootup level minimal
+spanning-tree mode pvst
+spanning-tree extend system-id
+hw-switch switch 1 logging onboard message level 3
+!
+redundancy
+ mode sso
+!
+!
+vlan 1302
+ name IJSS-DC/DC2/DHCP
+!
+vlan 1303
+ name IJSS-PROXY
+!
+vlan 1304
+ name IJSS-BACKUP/FILE
+!
+vlan 1305
+ name IJSS-MONITORING
+!
+vlan 1306
+ name IJSS-MOODLE/MOODLE2
+!
+vlan 1307
+ name IJSS-MAIL
+!
+vlan 1308
+ name IJSS-WEB
+!
+vlan 1310
+ name Native-Harderwijk
+!
+vlan 1311
+ name Docenten-Harderwijk
+!
+vlan 1312
+ name Studenten-Harderwijk
+!
+vlan 1313
+ name Gasten-Harderwijk
+!
+vlan 1319
+ name Manage-Harderwijk
+!
+!
+class-map match-any non-client-nrt-class
+!
+policy-map port_child_policy
+ class non-client-nrt-class
+  bandwidth remaining ratio 10
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ vrf forwarding Mgmt-vrf
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1313,1319
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/4
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1308,1310-1313,1319
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+ no switchport
+ ip address 192.168.13.5 255.255.255.252
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+ no switchport
+ ip address 192.168.0.113 255.255.255.252
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1308,1310-1313,1319
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/24
+ switchport access vlan 1319
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan1302
+ description Gateway 1302
+ ip address 13.2.0.2 255.255.255.0
+!
+interface Vlan1303
+ description Gateway vlan 1303
+ ip address 13.3.0.2 255.255.255.0
+!
+interface Vlan1304
+ description Gateway vlan 1304
+ ip address 13.4.0.2 255.255.255.0
+!
+interface Vlan1305
+ ip address 13.5.0.2 255.255.255.0
+!
+interface Vlan1306
+ ip address 13.6.0.2 255.255.255.0
+!
+interface Vlan1307
+ ip address 13.7.0.2 255.255.255.0
+!
+interface Vlan1308
+ ip address 13.8.0.2 255.255.255.0
+!
+interface Vlan1310
+ ip address 13.10.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Vlan1311
+ ip address 13.11.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Vlan1312
+ ip address 13.12.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Vlan1313
+ ip address 13.13.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+interface Vlan1319
+ ip address 13.19.0.2 255.255.255.0
+ ip helper-address 13.2.0.12
+!
+router ospf 1
+ network 192.168.0.112 0.0.0.3 area 0
+ network 192.168.13.4 0.0.0.3 area 13
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+line con 0
+ password 7 10660817011F131D050A2D7A65
+ login
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ password 7 062E0E2F4846080F0C19155A4D
+ login local
+ transport input ssh
+line vty 5 15
+ password 7 062E0E2F4846080F0C19155A4D
+ login local
+ transport input ssh
+!
+wsma agent exec
+ profile httplistener
+ profile httpslistener
+!
+wsma agent config
+ profile httplistener
+ profile httpslistener
+!
+wsma agent filesys
+ profile httplistener
+ profile httpslistener
+!
+wsma agent notify
+ profile httplistener
+ profile httpslistener
+!
+!
+wsma profile listener httplistener
+ transport http
+!
+wsma profile listener httpslistener
+ transport https
+!
+ap group default-group
+end
