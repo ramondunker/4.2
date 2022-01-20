@@ -1,3 +1,9 @@
+PUT-R1#show run
+Building configuration...
+
+Current configuration : 2545 bytes
+!
+! Last configuration change at 17:15:12 UTC Wed Jan 19 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -153,3 +159,4 @@ line vty 5 15
 scheduler allocate 20000 1000
 !
 end
+
