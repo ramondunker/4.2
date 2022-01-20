@@ -1,9 +1,9 @@
 EPE-SW1#show run
 Building configuration...
 
-Current configuration : 4421 bytes
+Current configuration : 4626 bytes
 !
-! Last configuration change at 21:55:02 UTC Tue Mar 2 1993
+! Last configuration change at 01:10:21 UTC Wed Mar 3 1993
 !
 version 15.2
 no service pad
@@ -173,6 +173,18 @@ interface GigabitEthernet0/2
 interface Vlan1
  no ip address
  shutdown
+!
+interface Vlan1820
+ ip address 18.20.0.2 255.255.255.0
+!
+interface Vlan1821
+ ip address 18.21.0.2 255.255.255.0
+!
+interface Vlan1822
+ ip address 18.22.0.2 255.255.0.0
+!
+interface Vlan1823
+ no ip address
 !
 interface Vlan1829
  ip address 18.29.0.2 255.255.255.0
