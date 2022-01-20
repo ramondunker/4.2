@@ -1,0 +1,107 @@
+Harderwijk-Netwerk
+
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1321-Docenten-PUT" -Description "Docenten Putten 1321" -StartRange 13.21.0.1 -EndRange 13.21.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.21.0.0 -StartRange 13.21.0.1 -EndRange 13.21.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.21.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.21.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1333-Docenten-NUN" -Description "Docenten Nunspeet 1331" -StartRange 13.31.0.1 -EndRange 13.31.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.31.0.0 -StartRange 13.31.0.1 -EndRange 13.31.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.31.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.31.0.0
+
+*****************************************************************************************************************************************************************************
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1312-Studenten-HW" -Description "Studenten Harderwijk 1312" -StartRange 13.12.0.1 -EndRange 13.12.255.254 -SubnetMask 255.255.0.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.12.0.0 -StartRange 13.12.0.1 -EndRange 13.12.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.12.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.12.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1322-Studenten-PUT" -Description "Studenten Putten 1322" -StartRange 13.22.0.1 -EndRange 13.22.255.254 -SubnetMask 255.255.0.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.22.0.0 -StartRange 13.22.0.1 -EndRange 13.22.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.22.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.22.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1332-Studenten-NUN" -Description "Studenten Nunspeet 1332" -StartRange 13.32.0.1 -EndRange 13.32.255.254 -SubnetMask 255.255.0.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.32.0.0 -StartRange 13.32.0.1 -EndRange 13.32.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.32.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.32.0.0
+
+*****************************************************************************************************************************************************************************
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1313-Gasten-HW" -Description "Gasten Harderwijk 1313" -StartRange 13.13.0.1 -EndRange 13.13.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.13.0.0 -StartRange 13.13.0.1 -EndRange 13.13.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.13.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.13.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1323-Gasten-PUT" -Description "Gasten Putten 1323" -StartRange 13.23.0.1 -EndRange 13.23.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.23.0.0 -StartRange 13.23.0.1 -EndRange 13.23.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.23.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.23.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1333-Gasten-NUN" -Description "Gasten Nunspeet 1333" -StartRange 13.33.0.1 -EndRange 13.33.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.33.0.0 -StartRange 13.33.0.1 -EndRange 13.33.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.33.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.33.0.0
+
+*****************************************************************************************************************************************************************************
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1319-Management-HW" -Description "Management Harderwijk 1319" -StartRange 13.19.0.1 -EndRange 13.19.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.19.0.0 -StartRange 13.19.0.1 -EndRange 13.19.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.19.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.19.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1329-Management-PUT" -Description "Management Putten 1329" -StartRange 13.29.0.1 -EndRange 13.29.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.29.0.0 -StartRange 13.29.0.1 -EndRange 13.29.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.29.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.29.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1339-Management-NUN" -Description "Management Nunspeet 1339" -StartRange 13.39.0.1 -EndRange 13.39.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 13.39.0.0 -StartRange 13.39.0.1 -EndRange 13.39.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "13.39.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 13.39.0.0
+
+*****************************************************************************************************************************************************************************
+
+Deventer Netwerk
+
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1821-Docenten-DEV" -Description "Docenten Epe 1821" -StartRange 18.21.0.1 -EndRange 18.21.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.21.0.0 -StartRange 18.21.0.1 -EndRange 18.21.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.21.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.21.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1831-Docenten-EPE" -Description "Docenten Ermelo 1831" -StartRange 18.31.0.1 -EndRange 18.31.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.31.0.0 -StartRange 18.31.0.1 -EndRange 18.31.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.31.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.31.0.0
+
+*****************************************************************************************************************************************************************************
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1812-Studenten-DEV" -Description "Studenten Deventer 1812" -StartRange 18.12.0.1 -EndRange 18.12.255.254 -SubnetMask 255.255.0.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.12.0.0 -StartRange 18.12.0.1 -EndRange 18.12.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.12.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.12.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1822-Studenten-EPE" -Description "Studenten Epe 1822" -StartRange 18.22.0.1 -EndRange 18.22.255.254 -SubnetMask 255.255.0.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.22.0.0 -StartRange 18.22.0.1 -EndRange 18.22.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.22.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.22.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1832-Studenten-ERM" -Description "Studenten Ermelo 1832" -StartRange 18.32.0.1 -EndRange 18.32.255.254 -SubnetMask 255.255.0.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.32.0.0 -StartRange 18.32.0.1 -EndRange 18.32.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.32.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.32.0.0
+
+*****************************************************************************************************************************************************************************
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1813-Gasten-DEV" -Description "Gasten Deventer 1813" -StartRange 18.13.0.1 -EndRange 18.13.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.13.0.0 -StartRange 18.13.0.1 -EndRange 18.13.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.13.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.13.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1823-Gasten-EPE" -Description "Gasten Epe 1823" -StartRange 18.23.0.1 -EndRange 18.23.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.23.0.0 -StartRange 18.23.0.1 -EndRange 18.23.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.23.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.23.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1833-Gasten-ERM" -Description "Gasten Ermelo 1833" -StartRange 18.33.0.1 -EndRange 18.33.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.33.0.0 -StartRange 18.33.0.1 -EndRange 18.33.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.33.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.33.0.0
+
+*****************************************************************************************************************************************************************************
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1819-Management-DEV" -Description "Management Deventer 1819" -StartRange 18.19.0.1 -EndRange 18.19.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.19.0.0 -StartRange 18.19.0.1 -EndRange 18.19.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.19.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.19.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1829-Management-EPE" -Description "Management Epe 1829" -StartRange 18.29.0.1 -EndRange 18.29.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.29.0.0 -StartRange 18.29.0.1 -EndRange 18.29.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.29.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.29.0.0
+
+Add-DhcpServerv4Scope -Computername "IJSS-DC.ijsselstreek.uni" -Name "1839-Management-ERM" -Description "Management Ermelo 1839" -StartRange 18.39.0.1 -EndRange 18.39.0.254 -SubnetMask 255.255.255.0 -LeaseDuration 2.00:00:00 -State Active
+Add-Dhcpserverv4ExclusionRange -ScopeId 18.39.0.0 -StartRange 18.39.0.1 -EndRange 18.39.0.10
+Set-DhcpServerv4OptionValue -ComputerName "IJSS-DC.ijsselstreek.uni" -Router "18.39.0.1" -DnsServer "13.2.0.10" -DnsDomain "ijsselstreek.uni" -ScopeId 18.39.0.0
