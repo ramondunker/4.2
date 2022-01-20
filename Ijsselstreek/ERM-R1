@@ -1,5 +1,9 @@
+ERM-R1#show run
+Building configuration...
+
+Current configuration : 2566 bytes
 !
-! Last configuration change at 17:05:04 UTC Tue Jan 18 2022
+! Last configuration change at 10:08:39 UTC Wed Jan 19 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -38,7 +42,7 @@ multilink bundle-name authenticated
 cts logging verbose
 !
 !
-license udi pid CISCO1941/K9 sn FCZ2048B07C
+license udi pid CISCO1941/K9 sn FCZ2048B08B
 license boot module c1900 technology-package securityk9
 !
 !
@@ -112,18 +116,9 @@ interface GigabitEthernet0/1.1839
 !
 interface Serial0/0/0
  ip address 192.168.18.10 255.255.255.252
+ clock rate 2000000
 !
 interface Serial0/0/1
- no ip address
- shutdown
- clock rate 2000000
-!
-interface Serial0/1/0
- no ip address
- shutdown
- clock rate 2000000
-!
-interface Serial0/1/1
  no ip address
  shutdown
  clock rate 2000000
@@ -146,6 +141,11 @@ line con 0
  login
 line aux 0
 line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
 line vty 0 4
  password 7 022E05550F0E0E3745400E4844
  login local
