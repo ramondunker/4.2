@@ -1,6 +1,6 @@
-Current configuration : 5989 bytes
+Current configuration : 6167 bytes
 !
-! Last configuration change at 08:50:20 UTC Thu Jan 20 2022 by beheer
+! Last configuration change at 09:06:42 UTC Thu Jan 20 2022
 !
 version 15.2
 no service pad
@@ -271,7 +271,7 @@ interface Vlan1319
  ip address 13.19.0.1 255.255.255.252
  ip helper-address 13.2.0.10
 !
-router ospf 1
+router ospf 13
  network 13.0.0.0 0.0.0.3 area 13
  network 13.2.0.0 0.0.0.255 area 13
  network 13.3.0.0 0.0.0.255 area 13
@@ -281,6 +281,11 @@ router ospf 1
  network 13.7.0.0 0.0.0.255 area 13
  network 13.8.0.0 0.0.0.255 area 13
  network 13.9.0.0 0.0.0.255 area 13
+ network 13.10.0.0 0.0.0.255 area 13
+ network 13.11.0.0 0.0.0.255 area 13
+ network 13.12.0.0 0.0.255.255 area 13
+ network 13.13.0.0 0.0.0.255 area 13
+ network 13.19.0.0 0.0.0.255 area 13
  network 192.168.0.104 0.0.0.3 area 0
  network 192.168.13.0 0.0.0.3 area 13
 !
