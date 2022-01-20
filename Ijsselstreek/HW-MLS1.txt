@@ -1,11 +1,12 @@
+Current configuration : 5894 bytes
 !
-! Last configuration change at 12:07:06 UTC Mon Jan 17 2022
+! Last configuration change at 08:27:08 UTC Thu Jan 20 2022
 !
 version 15.2
 no service pad
 service timestamps debug datetime msec
 service timestamps log datetime msec
-no service password-encryption
+service password-encryption
 service compress-config
 !
 hostname HW-MLS1
@@ -22,7 +23,9 @@ vrf definition Mgmt-vrf
  address-family ipv6
  exit-address-family
 !
+enable secret 5 $1$fDkn$jFU5fxGRgenNCBubMgJWP/
 !
+username beheer password 7 013B070A5F0307192842495858
 no aaa new-model
 switch 1 provision ws-c3650-24ts
 !
@@ -32,6 +35,7 @@ switch 1 provision ws-c3650-24ts
 !
 ip routing
 !
+ip domain-name ijsselstreek.uni
 !
 !
 qos queue-softmax-multiplier 100
@@ -47,6 +51,45 @@ hw-switch switch 1 logging onboard message level 3
 redundancy
  mode sso
 !
+!
+vlan 1302
+ name IJSS-DC/DC2/DHCP
+!
+vlan 1303
+ name IJSS-PROXY
+!
+vlan 1304
+ name IJSS-BACKUP/FILE
+!
+vlan 1305
+ name IJSS-MONITORING/NTP
+!
+vlan 1306
+ name IJSS-MOODLE/MOODLE2
+!
+vlan 1307
+ name IJSS-MAIL
+!
+vlan 1308
+ name IJSS-WEB
+!
+vlan 1309
+ name NTP-FTP
+!
+vlan 1310
+ name Native-Harderwijk
+!
+vlan 1311
+ name Docenten-Harderwijk
+!
+vlan 1312
+ name Studenten-Harderwijk
+!
+vlan 1313
+ name Gasten-Harderwijk
+!
+vlan 1319
+ name Manage-Harderwijk
 !
 !
 class-map match-any non-client-nrt-class
@@ -74,41 +117,55 @@ interface GigabitEthernet0/0
  negotiation auto
 !
 interface GigabitEthernet1/0/1
+ no switchport
+ ip address 13.0.0.2 255.255.255.252
 !
 interface GigabitEthernet1/0/2
+ shutdown
 !
 interface GigabitEthernet1/0/3
- description Trunk HW vlans
+ description Trunk HW Vlans richting SW1
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1310-1313,1319
+ switchport trunk allowed vlan 1302-1308,1310-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/4
+ shutdown
 !
 interface GigabitEthernet1/0/5
+ shutdown
 !
 interface GigabitEthernet1/0/6
+ shutdown
 !
 interface GigabitEthernet1/0/7
+ shutdown
 !
 interface GigabitEthernet1/0/8
+ shutdown
 !
 interface GigabitEthernet1/0/9
+ shutdown
 !
 interface GigabitEthernet1/0/10
+ description Trunk HW Vlans richting HWMLS2
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1310-1313,1319
+ switchport trunk allowed vlan 1302-1308,1310-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/11
+ shutdown
 !
 interface GigabitEthernet1/0/12
+ shutdown
 !
 interface GigabitEthernet1/0/13
+ description routing richting PUTR1
  no switchport
  ip address 192.168.13.1 255.255.255.252
 !
 interface GigabitEthernet1/0/14
+ shutdown
 !
 interface GigabitEthernet1/0/15
  no switchport
@@ -116,22 +173,35 @@ interface GigabitEthernet1/0/15
  ipv6 enable
 !
 interface GigabitEthernet1/0/16
+ shutdown
 !
 interface GigabitEthernet1/0/17
+ shutdown
 !
 interface GigabitEthernet1/0/18
+ shutdown
 !
 interface GigabitEthernet1/0/19
+ shutdown
 !
 interface GigabitEthernet1/0/20
+ shutdown
 !
 interface GigabitEthernet1/0/21
+ description Richting servers Harderwijk
+ switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1310
+ switchport mode trunk
 !
 interface GigabitEthernet1/0/22
+ shutdown
 !
 interface GigabitEthernet1/0/23
+ description Richting firewall (WAN)
 !
 interface GigabitEthernet1/0/24
+ switchport access vlan 1311
+ switchport mode access
 !
 interface GigabitEthernet1/1/1
 !
@@ -145,31 +215,80 @@ interface Vlan1
  no ip address
  shutdown
 !
+interface Vlan1302
+ ip address 13.2.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
+!
+interface Vlan1303
+ ip address 13.3.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
+!
+interface Vlan1304
+ ip address 13.4.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
+!
+interface Vlan1305
+ ip address 13.5.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
+!
+interface Vlan1306
+ ip address 13.6.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
+!
+interface Vlan1307
+ ip address 13.7.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
+!
+interface Vlan1308
+ ip address 13.8.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
+!
 interface Vlan1310
  description Native Harderwijk
- no ip address
+ ip address 13.10.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1311
  description Docenten Harderwijk
- no ip address
+ ip address 13.11.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1312
  description Studenten Harderwijk
- no ip address
+ ip address 13.12.0.1 255.255.0.0
 !
 interface Vlan1313
  description Gasten Harderwijk
- no ip address
+ ip address 13.13.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1319
  description Management Harderwijk
- ip address 13.19.0.99 255.255.255.0
+ ip address 13.19.0.1 255.255.255.252
+ ip helper-address 13.2.0.10
+!
+router ospf 1
+ network 13.0.0.0 0.0.0.3 area 13
+ network 13.2.0.0 0.0.0.255 area 13
+ network 13.3.0.0 0.0.0.255 area 13
+ network 13.4.0.0 0.0.0.255 area 13
+ network 13.5.0.0 0.0.0.255 area 13
+ network 13.6.0.0 0.0.0.255 area 13
+ network 13.7.0.0 0.0.0.255 area 13
+ network 13.8.0.0 0.0.0.255 area 13
+ network 13.9.0.0 0.0.0.255 area 13
+ network 192.168.0.104 0.0.0.3 area 0
+ network 192.168.13.0 0.0.0.3 area 13
 !
 ip forward-protocol nd
 ip http server
 ip http authentication local
 ip http secure-server
 !
+ip route 0.0.0.0 0.0.0.0 13.0.0.1
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh version 2
 !
 !
 !
@@ -177,13 +296,19 @@ ip http secure-server
 !
 !
 line con 0
+ password 7 032C5A050207205A47071E5456
+ login
  stopbits 1
 line aux 0
  stopbits 1
 line vty 0 4
- login
+ password 7 022E05550F0E0E3745400E4844
+ login local
+ transport input ssh
 line vty 5 15
- login
+ password 7 1121180B131A0A1A0D242C7569
+ login local
+ transport input ssh
 !
 wsma agent exec
  profile httplistener
@@ -210,4 +335,3 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
-
