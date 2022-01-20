@@ -1,6 +1,6 @@
-Current configuration : 4775 bytes
+Current configuration : 5728 bytes
 !
-! Last configuration change at 07:49:24 UTC Wed Jan 19 2022
+! Last configuration change at 09:33:08 UTC Thu Jan 20 2022 by beheer
 !
 version 15.2
 no service pad
@@ -188,48 +188,78 @@ interface Vlan1
 interface Vlan1302
  description Gateway 1302
  ip address 13.2.0.2 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1303
  description Gateway vlan 1303
  ip address 13.3.0.2 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1304
  description Gateway vlan 1304
  ip address 13.4.0.2 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1305
  ip address 13.5.0.2 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1306
  ip address 13.6.0.2 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1307
  ip address 13.7.0.2 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1308
  ip address 13.8.0.2 255.255.255.0
+ ip helper-address 13.2.0.10
+!
+interface Vlan1309
+ ip address 13.9.0.2 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 interface Vlan1310
  ip address 13.10.0.2 255.255.255.0
  ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Vlan1311
  ip address 13.11.0.2 255.255.255.0
  ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Vlan1312
  ip address 13.12.0.2 255.255.255.0
  ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Vlan1313
  ip address 13.13.0.2 255.255.255.0
  ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Vlan1319
  ip address 13.19.0.2 255.255.255.0
  ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
-router ospf 1
+router ospf 13
+ network 13.0.0.0 0.0.0.3 area 13
+ network 13.2.0.0 0.0.0.255 area 13
+ network 13.3.0.0 0.0.0.255 area 13
+ network 13.4.0.0 0.0.0.255 area 13
+ network 13.5.0.0 0.0.0.255 area 13
+ network 13.6.0.0 0.0.0.255 area 13
+ network 13.7.0.0 0.0.0.255 area 13
+ network 13.8.0.0 0.0.0.255 area 13
+ network 13.9.0.0 0.0.0.255 area 13
+ network 13.10.0.0 0.0.0.255 area 13
+ network 13.11.0.0 0.0.0.255 area 13
+ network 13.12.0.0 0.0.255.255 area 13
+ network 13.13.0.0 0.0.0.255 area 13
+ network 13.19.0.0 0.0.0.255 area 13
  network 192.168.0.112 0.0.0.3 area 0
  network 192.168.13.4 0.0.0.3 area 13
 !
