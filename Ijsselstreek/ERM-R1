@@ -1,9 +1,9 @@
 ERM-R1#show run
 Building configuration...
 
-Current configuration : 2566 bytes
+Current configuration : 2834 bytes
 !
-! Last configuration change at 10:08:39 UTC Wed Jan 19 2022
+! Last configuration change at 10:00:57 UTC Thu Jan 20 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -80,7 +80,6 @@ interface GigabitEthernet0/0
 !
 interface GigabitEthernet0/1
  no ip address
- shutdown
  duplex auto
  speed auto
 !
@@ -88,31 +87,31 @@ interface GigabitEthernet0/1.1830
  description SubInterface-VLAN1830-Ermelo-Native
  encapsulation dot1Q 1830 native
  ip address 18.30.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1831
  description SubInterface-VLAN1831-Ermelo-Docenten
  encapsulation dot1Q 1831
  ip address 18.31.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1832
  description SubInterface-VLAN1832-Ermelo-Studenten
  encapsulation dot1Q 1832
- ip address 18.32.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip address 18.32.0.1 255.255.0.0
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1833
  description SubInterface-VLAN1833-Ermelo-Gasten
  encapsulation dot1Q 1833
  ip address 18.33.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1839
  description SubInterface-VLAN1839-Ermelo-Management
  encapsulation dot1Q 1839
  ip address 18.39.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Serial0/0/0
  ip address 192.168.18.10 255.255.255.252
@@ -122,6 +121,15 @@ interface Serial0/0/1
  no ip address
  shutdown
  clock rate 2000000
+!
+router ospf 18
+ network 18.30.0.0 0.0.0.255 area 18
+ network 18.31.0.0 0.0.0.255 area 18
+ network 18.32.0.0 0.0.255.255 area 18
+ network 18.33.0.0 0.0.0.255 area 18
+ network 18.39.0.0 0.0.0.255 area 18
+ network 192.168.18.4 0.0.0.3 area 18
+ network 192.168.18.8 0.0.0.3 area 18
 !
 ip forward-protocol nd
 !
