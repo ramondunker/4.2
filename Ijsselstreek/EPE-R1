@@ -1,9 +1,9 @@
-EPE-R1#show run
+EPE-R1#show running-config 
 Building configuration...
 
-Current configuration : 2668 bytes
+Current configuration : 2936 bytes
 !
-! Last configuration change at 18:03:29 UTC Wed Jan 19 2022
+! Last configuration change at 17:58:22 UTC Thu Jan 20 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -23,7 +23,7 @@ no aaa new-model
 !
 !
 !
-!
+!         
 !
 !
 !
@@ -59,7 +59,7 @@ redundancy
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
-!
+! 
 !
 !
 !
@@ -80,7 +80,6 @@ interface GigabitEthernet0/0
 !
 interface GigabitEthernet0/1
  no ip address
- shutdown
  duplex auto
  speed auto
 !
@@ -88,35 +87,35 @@ interface GigabitEthernet0/1.1820
  description SubInterface-VLAN1820-Epe-Native
  encapsulation dot1Q 1820 native
  ip address 18.20.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1821
  description SubInterface-VLAN1821-Epe-Docenten
  encapsulation dot1Q 1821
  ip address 18.21.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1822
  description SubInterface-VLAN1822-Epe-Studenten
  encapsulation dot1Q 1822
- ip address 18.22.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip address 18.22.0.1 255.255.0.0
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1823
  description SubInterface-VLAN1823-Epe-Gasten
  encapsulation dot1Q 1823
  ip address 18.23.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1829
  description SubInterface-VLAN1829-Epe-Management
  encapsulation dot1Q 1829
  ip address 18.29.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Serial0/0/0
  ip address 192.168.18.9 255.255.255.252
-!
+!         
 interface Serial0/0/1
  no ip address
  shutdown
@@ -131,6 +130,15 @@ interface Serial0/1/1
  no ip address
  shutdown
  clock rate 2000000
+!
+router ospf 18
+ network 18.20.0.0 0.0.0.255 area 18
+ network 18.21.0.0 0.0.0.255 area 18
+ network 18.22.0.0 0.0.255.255 area 18
+ network 18.23.0.0 0.0.0.255 area 18
+ network 18.29.0.0 0.0.0.255 area 18
+ network 192.168.18.0 0.0.0.3 area 18
+ network 192.168.18.8 0.0.0.3 area 18
 !
 ip forward-protocol nd
 !
