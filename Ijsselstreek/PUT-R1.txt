@@ -3,7 +3,7 @@ Building configuration...
 
 Current configuration : 2545 bytes
 !
-! Last configuration change at 17:15:12 UTC Wed Jan 19 2022
+! Last configuration change at 18:08:54 UTC Thu Jan 20 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -23,7 +23,7 @@ no aaa new-model
 !
 !
 !
-!
+!         
 !
 !
 !
@@ -57,7 +57,7 @@ redundancy
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
-!
+! 
 !
 !
 !
@@ -69,7 +69,7 @@ ip ssh version 2
 !
 interface Embedded-Service-Engine0/0
  no ip address
- shutdown
+ shutdown 
 !
 interface GigabitEthernet0/0
  ip address 192.168.13.2 255.255.255.252
@@ -85,31 +85,31 @@ interface GigabitEthernet0/1.1320
  description Subint 1320 PUT Native
  encapsulation dot1Q 1320 native
  ip address 13.20.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1321
  description Subint 1321 PUT Docenten
  encapsulation dot1Q 1321
  ip address 13.21.0.1 255.255.255.0
- ip helper-address 13.2.0.12
-!
+ ip helper-address 13.2.0.10
+!         
 interface GigabitEthernet0/1.1322
  description Subint 1322 PUT Studenten
  encapsulation dot1Q 1322
  ip address 13.22.0.1 255.255.0.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1323
  description Subint 1323 PUT Gasten
  encapsulation dot1Q 1323
  ip address 13.23.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1329
  description Subint 1329 PUT Management
  encapsulation dot1Q 1329
  ip address 13.29.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Serial0/0/0
  ip address 192.168.13.9 255.255.255.252
@@ -159,4 +159,3 @@ line vty 5 15
 scheduler allocate 20000 1000
 !
 end
-
