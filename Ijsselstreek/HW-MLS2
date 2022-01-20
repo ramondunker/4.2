@@ -1,6 +1,6 @@
-Current configuration : 5728 bytes
+Current configuration : 5583 bytes
 !
-! Last configuration change at 09:33:08 UTC Thu Jan 20 2022 by beheer
+! Last configuration change at 09:45:51 UTC Thu Jan 20 2022 by beheer
 !
 version 15.2
 no service pad
@@ -222,27 +222,22 @@ interface Vlan1309
 !
 interface Vlan1310
  ip address 13.10.0.2 255.255.255.0
- ip helper-address 13.2.0.12
  ip helper-address 13.2.0.10
 !
 interface Vlan1311
  ip address 13.11.0.2 255.255.255.0
- ip helper-address 13.2.0.12
  ip helper-address 13.2.0.10
 !
 interface Vlan1312
  ip address 13.12.0.2 255.255.255.0
- ip helper-address 13.2.0.12
  ip helper-address 13.2.0.10
 !
 interface Vlan1313
  ip address 13.13.0.2 255.255.255.0
- ip helper-address 13.2.0.12
  ip helper-address 13.2.0.10
 !
 interface Vlan1319
  ip address 13.19.0.2 255.255.255.0
- ip helper-address 13.2.0.12
  ip helper-address 13.2.0.10
 !
 router ospf 13
