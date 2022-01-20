@@ -1,9 +1,10 @@
 DEV-MLS2#show run
 Building configuration...
 
+*Jan 20 10:56:41.033: %SYS-5-CONFIG_I: Configured from console by console
 Current configuration : 4261 bytes
 !
-! Last configuration change at 09:24:44 UTC Thu Jan 20 2022
+! Last configuration change at 10:56:41 UTC Thu Jan 20 2022
 !
 version 15.2
 no service pad
@@ -171,23 +172,23 @@ interface Vlan1
 !
 interface Vlan1810
  ip address 18.10.0.2 255.255.255.0
- ip helper-address 18.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Vlan1811
  ip address 18.11.0.2 255.255.255.0
- ip helper-address 18.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Vlan1812
  ip address 18.12.0.2 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Vlan1813
  ip address 18.13.0.2 255.255.255.0
- ip helper-address 18.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Vlan1819
  ip address 18.19.0.2 255.255.255.0
- ip helper-address 18.2.0.12
+ ip helper-address 13.2.0.10
 !
 router ospf 18
  network 18.10.0.0 0.0.0.255 area 18
@@ -252,3 +253,4 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
+
