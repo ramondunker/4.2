@@ -1,5 +1,9 @@
+EPE-R1#show run
+Building configuration...
+
+Current configuration : 2668 bytes
 !
-! Last configuration change at 17:05:04 UTC Tue Jan 18 2022
+! Last configuration change at 18:03:29 UTC Wed Jan 19 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -38,7 +42,7 @@ multilink bundle-name authenticated
 cts logging verbose
 !
 !
-license udi pid CISCO1941/K9 sn FCZ2048B07C
+license udi pid CISCO1941/K9 sn FCZ20484067
 license boot module c1900 technology-package securityk9
 !
 !
@@ -146,6 +150,11 @@ line con 0
  login
 line aux 0
 line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
 line vty 0 4
  password 7 022E05550F0E0E3745400E4844
  login local
