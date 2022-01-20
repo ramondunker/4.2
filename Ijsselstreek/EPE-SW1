@@ -184,7 +184,7 @@ interface Vlan1822
  ip address 18.22.0.2 255.255.0.0
 !
 interface Vlan1823
- no ip address
+ ip address 18.23.0.2 255.255.255.0
 !
 interface Vlan1829
  ip address 18.29.0.2 255.255.255.0
