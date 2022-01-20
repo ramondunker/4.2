@@ -1,10 +1,9 @@
-Current configuration : 6167 bytes
 !
-! Last configuration change at 09:06:42 UTC Thu Jan 20 2022
+! Last configuration change at 10:48:19 UTC Thu Jan 20 2022 by beheer
 !
 version 15.2
 no service pad
-service timestamps debug datetime msec
+service timestamps debug datetime localtime show-timezone
 service timestamps log datetime msec
 service password-encryption
 service compress-config
@@ -26,7 +25,20 @@ vrf definition Mgmt-vrf
 enable secret 5 $1$fDkn$jFU5fxGRgenNCBubMgJWP/
 !
 username beheer password 7 013B070A5F0307192842495858
-no aaa new-model
+aaa new-model
+!
+!
+aaa group server radius Radius_Group
+!
+aaa authentication login default group Radius_Group local
+aaa authentication login console group Radius_Group local
+!
+!
+!
+!
+!
+!
+aaa session-id common
 switch 1 provision ws-c3650-24ts
 !
 !
@@ -198,6 +210,7 @@ interface GigabitEthernet1/0/22
 !
 interface GigabitEthernet1/0/23
  description Richting firewall (WAN)
+ switchport access vlan 1319
 !
 interface GigabitEthernet1/0/24
  switchport access vlan 1311
@@ -300,23 +313,27 @@ ip ssh authentication-retries 2
 ip ssh version 2
 !
 !
+logging host 13.5.0.10 transport udp port 9002
+!
+!
+!
+radius server DC1
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
+ key 7 1231041916030D122325237972
 !
 !
 !
 !
 line con 0
  password 7 032C5A050207205A47071E5456
- login
  stopbits 1
 line aux 0
  stopbits 1
 line vty 0 4
  password 7 022E05550F0E0E3745400E4844
- login local
  transport input ssh
 line vty 5 15
  password 7 1121180B131A0A1A0D242C7569
- login local
  transport input ssh
 !
 wsma agent exec
