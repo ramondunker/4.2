@@ -1,9 +1,8 @@
-NUN-R1#show run
 Building configuration...
 
-Current configuration : 2806 bytes
+Current configuration : 2796 bytes
 !
-! Last configuration change at 16:32:25 UTC Wed Jan 19 2022 by beheer
+! Last configuration change at 17:44:53 UTC Thu Jan 20 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -23,7 +22,7 @@ no aaa new-model
 !
 !
 !
-!
+!         
 !
 !
 !
@@ -59,7 +58,7 @@ redundancy
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
-!
+! 
 !
 !
 !
@@ -88,31 +87,31 @@ interface GigabitEthernet0/1.1330
  description SubInterface-VLAN1330-Harderwijk-Native
  encapsulation dot1Q 1330 native
  ip address 13.30.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1331
  description SubInterface-VLAN1331-Harderwijk-Docenten
  encapsulation dot1Q 1331
  ip address 13.31.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1332
  description SubInterface-VLAN1332-Harderwijk-Studenten
  encapsulation dot1Q 1332
  ip address 13.32.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1333
  description SubInterface-VLAN1333-Harderwijk-Gasten
  encapsulation dot1Q 1333
  ip address 13.33.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface GigabitEthernet0/1.1339
  description SubInterface-VLAN1339-Harderwijk-Management
  encapsulation dot1Q 1339
  ip address 13.39.0.1 255.255.255.0
- ip helper-address 13.2.0.12
+ ip helper-address 13.2.0.10
 !
 interface Serial0/0/0
  ip address 192.168.13.10 255.255.255.252
