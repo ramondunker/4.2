@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 2796 bytes
+Current configuration : 2984 bytes
 !
-! Last configuration change at 17:44:53 UTC Thu Jan 20 2022
+! Last configuration change at 18:35:07 UTC Thu Jan 20 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -131,7 +131,12 @@ interface Serial0/1/1
  shutdown
  clock rate 2000000
 !
-router ospf 1
+router ospf 13
+ network 13.30.0.0 0.0.0.255 area 13
+ network 13.31.0.0 0.0.0.255 area 13
+ network 13.32.0.0 0.0.255.255 area 13
+ network 13.33.0.0 0.0.0.255 area 13
+ network 13.39.0.0 0.0.0.255 area 13
  network 192.168.13.4 0.0.0.3 area 13
  network 192.168.13.8 0.0.0.3 area 13
 !
