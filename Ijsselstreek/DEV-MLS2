@@ -1,5 +1,9 @@
+DEV-MLS2#show run
+Building configuration...
+
+Current configuration : 4261 bytes
 !
-! Last configuration change at 09:42:17 UTC Wed Jan 19 2022
+! Last configuration change at 09:24:44 UTC Thu Jan 20 2022
 !
 version 15.2
 no service pad
@@ -34,6 +38,7 @@ switch 1 provision ws-c3650-24ts
 !
 ip routing
 !
+no ip domain-lookup
 ip domain-name ijsselstreek.uni
 !
 !
@@ -184,8 +189,13 @@ interface Vlan1819
  ip address 18.19.0.2 255.255.255.0
  ip helper-address 18.2.0.12
 !
-router ospf 1
- network 192.168.0.112 0.0.0.3 area 0
+router ospf 18
+ network 18.10.0.0 0.0.0.255 area 18
+ network 18.11.0.0 0.0.0.255 area 18
+ network 18.12.0.0 0.0.255.255 area 18
+ network 18.13.0.0 0.0.0.255 area 18
+ network 18.19.0.0 0.0.0.255 area 18
+ network 192.168.0.116 0.0.0.3 area 0
  network 192.168.18.4 0.0.0.3 area 18
 !
 ip forward-protocol nd
