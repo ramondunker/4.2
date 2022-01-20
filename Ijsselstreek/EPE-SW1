@@ -1,5 +1,9 @@
+EPE-SW1#show run
+Building configuration...
+
+Current configuration : 4421 bytes
 !
-! Last configuration change at 02:00:25 UTC Mon Mar 1 1993
+! Last configuration change at 21:55:02 UTC Tue Mar 2 1993
 !
 version 15.2
 no service pad
@@ -28,11 +32,40 @@ vtp mode transparent
 ip domain-name ijsselstreek.uni
 !
 !
+crypto pki trustpoint TP-self-signed-2808334080
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2808334080
+ revocation-check none
+ rsakeypair TP-self-signed-2808334080
 !
+!
+crypto pki certificate chain TP-self-signed-2808334080
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 32383038 33333430 3830301E 170D3933 30333031 30303031
+  33395A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 38303833
+  33343038 3030819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  81008AD5 01D86E89 EF789E75 BC323EAC A00A1F34 42A50F11 2D61345D 289711E0
+  BEB2C6BF C02C5654 5DA28560 5567C9E2 FE54BAE5 E238E53A 0B60399A B5D0E41E
+  D36DB7E5 A6B7ADC5 0C8F8F05 8F4CD84D 5B4F7C1C 212AF009 06F0FBAE 8C5AA9CB
+  495FEAD0 37562E67 59E36512 0F53FBC0 A91799EF 54CB9427 1EE7CF02 D03F3B9A
+  9A0F0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603
+  551D2304 18301680 14D072BC 3A37D8CF 45E3DC6A 13674F61 C40717D2 05301D06
+  03551D0E 04160414 D072BC3A 37D8CF45 E3DC6A13 674F61C4 0717D205 300D0609
+  2A864886 F70D0101 05050003 8181007C BCD132F3 862E183E 14DC98C7 0D67B230
+  2EE7FD62 D1DCB214 AC42E601 2D05CA75 9045CDA4 ED558AF2 DB9D588F ADF01BF3
+  E9581395 24014AB9 EA308506 59B8AA3D 342A2F6A 17C323A0 D4080CCE 2CAAAFA5
+  1C46762C 69F36096 79C305A4 6AC1BB47 F63E4F70 83D0F573 3E346003 85CA3B7E
+  B48B1C37 0AE80637 1F8AB8B0 E4E484
+        quit
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
 vlan internal allocation policy ascending
+!
+vlan 2-3,26-27,36-37,46-47,56-57,181-182
 !
 vlan 1820
  name Native Epe
@@ -60,32 +93,60 @@ interface FastEthernet0/1
  switchport mode trunk
 !
 interface FastEthernet0/2
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/3
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/4
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/5
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/6
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/7
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/8
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/9
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/10
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/11
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/12
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/13
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/14
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/15
+ switchport access vlan 1829
+ switchport mode access
 !
 interface FastEthernet0/16
 !
@@ -113,9 +174,8 @@ interface Vlan1
  no ip address
  shutdown
 !
-interface Vlan 1829
+interface Vlan1829
  ip address 18.29.0.2 255.255.255.0
- no shutdown
 !
 ip http server
 ip http secure-server
