@@ -1,6 +1,6 @@
-Current configuration : 5894 bytes
+Current configuration : 5989 bytes
 !
-! Last configuration change at 08:27:08 UTC Thu Jan 20 2022
+! Last configuration change at 08:50:20 UTC Thu Jan 20 2022 by beheer
 !
 version 15.2
 no service pad
@@ -241,6 +241,10 @@ interface Vlan1307
 !
 interface Vlan1308
  ip address 13.8.0.1 255.255.255.0
+ ip helper-address 13.2.0.10
+!
+interface Vlan1309
+ ip address 13.9.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1310
