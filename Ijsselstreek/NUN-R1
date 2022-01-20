@@ -1,3 +1,9 @@
+NUN-R1#show run
+Building configuration...
+
+Current configuration : 2806 bytes
+!
+! Last configuration change at 16:32:25 UTC Wed Jan 19 2022 by beheer
 !
 version 15.4
 service timestamps debug datetime msec
