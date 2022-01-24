@@ -1,8 +1,10 @@
+NUN-R1#show run
 Building configuration...
 
-Current configuration : 2984 bytes
+Current configuration : 4121 bytes
 !
-! Last configuration change at 18:35:07 UTC Thu Jan 20 2022
+! Last configuration change at 12:04:32 CET Mon Jan 24 2022 by beheer
+! NVRAM config last updated at 12:01:56 CET Mon Jan 24 2022 by beheer
 !
 version 15.4
 service timestamps debug datetime msec
@@ -17,12 +19,32 @@ boot-end-marker
 !
 enable secret 5 $1$Mchi$2OhthWgHsSEmAvSKj4j8o/
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa group server radius radius-ise-group
+ server name radius-ise
+!
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
 !
 !
 !
 !
-!         
+!
+!
+aaa session-id common
+clock timezone CET 1 0
+!
+!
+!
+!
+!
 !
 !
 !
@@ -55,10 +77,12 @@ redundancy
 !
 !
 !
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
-! 
+!
 !
 !
 !
@@ -79,7 +103,6 @@ interface GigabitEthernet0/0
 !
 interface GigabitEthernet0/1
  no ip address
- shutdown
  duplex auto
  speed auto
 !
@@ -142,10 +165,29 @@ router ospf 13
 !
 ip forward-protocol nd
 !
-no ip http server
-no ip http secure-server
+ip http server
+ip http secure-server
 !
 !
+ip radius source-interface GigabitEthernet0/0
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/NUN-R1.cfg
+!
+!
+!
+!
+radius server radius-ise
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
+ key 7 0523070125444F1F100B10434A
 !
 !
 !
@@ -155,7 +197,6 @@ control-plane
 !
 line con 0
  password 7 08094D400D1104011B050B556B
- login
 line aux 0
 line 2
  no activation-character
@@ -164,14 +205,16 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- password 7 022E05550F0E0E3745400E4844
- login local
+ password 7 002C120800530A10062F4B1F48
+ authorization exec VTY_author
+ login authentication VTY_authen
+ length 0
  transport input ssh
 line vty 5 15
  password 7 022E05550F0E0E3745400E4844
- login local
  transport input ssh
 !
 scheduler allocate 20000 1000
+ntp server 13.9.0.10
 !
 end
