@@ -1,9 +1,10 @@
 ERM-SW1#show run
 Building configuration...
 
-Current configuration : 3902 bytes
+Current configuration : 4936 bytes
 !
-! Last configuration change at 01:27:28 UTC Wed Mar 3 1993
+! Last configuration change at 12:44:37 CET Fri Jan 21 2022 by beheer
+! NVRAM config last updated at 07:00:00 CET Mon Jan 24 2022
 !
 version 15.2
 no service pad
@@ -19,7 +20,25 @@ boot-end-marker
 enable secret 5 $1$f3vA$jXpVi.jixy8Zn8oi42eIN/
 !
 username beheer password 7 10660817011F131D050A2D7A65
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone CET 1 0
 system mtu routing 1500
 vtp mode transparent
 !
@@ -59,7 +78,7 @@ crypto pki certificate chain TP-self-signed-1631838080
   DFA930F6 506F38A7 20A1ED86 63CE1CF9 CFD51BA9 230C37E8 3A4F791B D96B022E
   6389E2D9 EBB2CE4A 484DDE54 FD4C7C4D 15272620 4FC2FE39 0685C367 3ECCEE21
   D6DF1909 BCEFBCA4 CFA133B7 9BE7FB
-        quit
+  	quit
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
@@ -163,22 +182,45 @@ interface Vlan1839
 !
 ip http server
 ip http secure-server
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
+!
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/dev-mls1.cfg
+!
+!
+radius server radius-ise
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
+ key 7 0523070125444F1F100B10434A
+!
 !
 no vstack
 !
 line con 0
  password 7 10660817011F131D050A2D7A65
- login
 line vty 0 4
- password 7 153A0A0200222A32213D327352
- login local
+ password 7 002C120800530A10062F4B1F48
+ authorization exec VTY_author
+ login authentication VTY_authen
+ length 0
  transport input ssh
 line vty 5 15
  password 7 153A0A0200222A32213D327352
- login local
  transport input ssh
 !
+ntp server 13.9.0.10
 end
+
+ERM-SW1#
