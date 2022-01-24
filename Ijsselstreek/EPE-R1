@@ -1,10 +1,10 @@
 EPE-R1#show run
 Building configuration...
 
-Current configuration : 4005 bytes
+Current configuration : 4127 bytes
 !
-! Last configuration change at 14:10:28 CET Mon Jan 24 2022 by beheer
-! NVRAM config last updated at 07:00:00 CET Mon Jan 24 2022
+! Last configuration change at 15:37:24 CET Mon Jan 24 2022 by beheer
+! NVRAM config last updated at 15:37:25 CET Mon Jan 24 2022 by beheer
 !
 version 15.4
 service timestamps debug datetime msec
@@ -21,6 +21,9 @@ enable secret 5 $1$Mchi$2OhthWgHsSEmAvSKj4j8o/
 !
 aaa new-model
 !
+!
+aaa group server radius radius-ise-group
+ server name radius-ise
 !
 aaa authentication login default none
 aaa authentication login VTY_authen group radius-ise-group local
@@ -166,6 +169,7 @@ no ip http server
 no ip http secure-server
 !
 !
+ip radius source-interface GigabitEthernet0/0
 kron occurrence ftp-daily-wr at 7:00 recurring
  policy-list ftp-daily-wr
 !
@@ -176,11 +180,11 @@ kron policy-list ftp-daily-wr
  cli write
 !
 kron policy-list ftp-daily-backup
- cli show run | redirect ftp://13.9.0.10/dev-mls1.cfg
+ cli show run | redirect ftp://13.9.0.10/EPE-R1.cfg
 !
 !
 !
-radius-server host 13.2.0.10 auth-port 1812 acct-port 1813 key 7 0523070125444F1F100B10434A
+radius-server host 13.2.0.10 auth-port 1812 acct-port 1813 key 7 0523070125444F1                                     F100B10434A
 !
 radius server radius-ise
  key 7 0523070125444F1F100B10434A
@@ -214,5 +218,3 @@ scheduler allocate 20000 1000
 ntp server 13.9.0.10
 !
 end
-
-EPE-R1#
