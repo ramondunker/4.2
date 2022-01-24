@@ -1,9 +1,9 @@
 EPE-R1#show run
 Building configuration...
 
-Current configuration : 4127 bytes
+Current configuration : 4232 bytes
 !
-! Last configuration change at 15:37:24 CET Mon Jan 24 2022 by beheer
+! Last configuration change at 17:26:01 CET Mon Jan 24 2022 by beheer
 ! NVRAM config last updated at 15:37:25 CET Mon Jan 24 2022 by beheer
 !
 version 15.4
@@ -97,11 +97,13 @@ interface Embedded-Service-Engine0/0
  shutdown
 !
 interface GigabitEthernet0/0
+ description LIJN RICHTING DEV-MLS1
  ip address 192.168.18.2 255.255.255.252
  duplex auto
  speed auto
 !
 interface GigabitEthernet0/1
+ description LIJN RICHTING EPE-SW1
  no ip address
  duplex auto
  speed auto
@@ -137,6 +139,7 @@ interface GigabitEthernet0/1.1829
  ip helper-address 13.2.0.10
 !
 interface Serial0/0/0
+ description LIJN RICHTING ERM-R1
  ip address 192.168.18.9 255.255.255.252
 !
 interface Serial0/0/1
@@ -184,7 +187,7 @@ kron policy-list ftp-daily-backup
 !
 !
 !
-radius-server host 13.2.0.10 auth-port 1812 acct-port 1813 key 7 0523070125444F1                                     F100B10434A
+radius-server host 13.2.0.10 auth-port 1812 acct-port 1813 key 7 0523070125444F1F100B10434A
 !
 radius server radius-ise
  key 7 0523070125444F1F100B10434A
