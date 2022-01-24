@@ -3,7 +3,7 @@ Building configuration...
 
 Current configuration : 5295 bytes
 !
-! Last configuration change at 15:02:33 CET Mon Jan 24 2022 by chiel.kroeze
+! Last configuration change at 15:09:06 CET Mon Jan 24 2022 by chiel.kroeze
 ! NVRAM config last updated at 11:09:41 CET Mon Jan 24 2022 by beheer
 !
 version 15.2
@@ -81,7 +81,7 @@ crypto pki certificate chain TP-self-signed-2808328448
   6732CF4F EAAD47A1 69E51518 17FBB722 B5025BFF F192F6CD 8EE7157C 139890F5
   4CD0ADE2 65E66C9F EA914651 986912F1 D242EC8B 2CB54CA2 98955893 D604EA64
   10A00DD6 6ACDC43D F05FDA21 8A0069
-  	quit
+        quit
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
@@ -232,5 +232,3 @@ line vty 5 15
 !
 ntp server 13.9.0.10
 end
-
-HW-SW1#
