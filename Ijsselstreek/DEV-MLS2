@@ -1,9 +1,9 @@
 DEV-MLS2#show run
 Building configuration...
 
-Current configuration : 4922 bytes
+Current configuration : 5203 bytes
 !
-! Last configuration change at 14:49:15 CET Mon Jan 24 2022 by beheer
+! Last configuration change at 17:21:53 CET Mon Jan 24 2022 by chiel.kroeze
 ! NVRAM config last updated at 14:49:16 CET Mon Jan 24 2022 by beheer
 !
 version 15.2
@@ -115,6 +115,7 @@ interface GigabitEthernet1/0/1
 interface GigabitEthernet1/0/2
 !
 interface GigabitEthernet1/0/3
+ description TRUNK RICHTING DEV-SW1
  switchport trunk native vlan 1810
  switchport trunk allowed vlan 1810-1813,1819
  switchport mode trunk
@@ -132,6 +133,7 @@ interface GigabitEthernet1/0/8
 interface GigabitEthernet1/0/9
 !
 interface GigabitEthernet1/0/10
+ description TRUNK RICHTING DEV-MLS1
  switchport trunk native vlan 1810
  switchport trunk allowed vlan 1810-1813,1819
  switchport mode trunk
@@ -141,12 +143,14 @@ interface GigabitEthernet1/0/11
 interface GigabitEthernet1/0/12
 !
 interface GigabitEthernet1/0/13
+ description TRUNK RICHTING ERM-R1
  no switchport
  ip address 192.168.18.5 255.255.255.252
 !
 interface GigabitEthernet1/0/14
 !
 interface GigabitEthernet1/0/15
+ description TRUNK RICHTING EDGE-R2
  no switchport
  ip address 192.168.0.118 255.255.255.252
 !
@@ -182,22 +186,27 @@ interface Vlan1
  shutdown
 !
 interface Vlan1810
+ description VLAN NATIVE
  ip address 18.10.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1811
+ description VLAN DOCENTEN
  ip address 18.11.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1812
+ description VLAN STUDENTEN
  ip address 18.12.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1813
+ description VLAN GASTEN
  ip address 18.13.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1819
+ description VLAN MANAGED
  ip address 18.19.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
