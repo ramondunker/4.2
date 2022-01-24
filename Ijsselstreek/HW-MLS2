@@ -1,6 +1,10 @@
-Current configuration : 5583 bytes
+HW-MLS2#show run
+Building configuration...
+
+Current configuration : 6602 bytes
 !
-! Last configuration change at 09:45:51 UTC Thu Jan 20 2022 by beheer
+! Last configuration change at 15:00:36 CET Mon Jan 24 2022 by swen.bergsma
+! NVRAM config last updated at 15:00:39 CET Mon Jan 24 2022 by swen.bergsma
 !
 version 15.2
 no service pad
@@ -26,7 +30,28 @@ vrf definition Mgmt-vrf
 enable secret 5 $1$TKUq$i2yrZiXO.EW9MDsXGP3rk0
 !
 username beheer password 7 0523070125444F1F100B10434A
-no aaa new-model
+aaa new-model
+!
+!
+aaa group server radius radius-ise-group
+ server name radius-ise
+!
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone CET 1 0
 switch 1 provision ws-c3650-24ts
 !
 !
@@ -44,6 +69,7 @@ vtp mode transparent
 !
 diagnostic bootup level minimal
 spanning-tree mode pvst
+spanning-tree portfast bpduguard default
 spanning-tree extend system-id
 hw-switch switch 1 logging onboard message level 3
 !
@@ -87,6 +113,8 @@ vlan 1313
 vlan 1319
  name Manage-Harderwijk
 !
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 !
 class-map match-any non-client-nrt-class
 !
@@ -118,7 +146,6 @@ interface GigabitEthernet1/0/2
 !
 interface GigabitEthernet1/0/3
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1302-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/4
@@ -135,7 +162,6 @@ interface GigabitEthernet1/0/9
 !
 interface GigabitEthernet1/0/10
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1302-1308,1310-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/11
@@ -167,9 +193,8 @@ interface GigabitEthernet1/0/21
 interface GigabitEthernet1/0/22
 !
 interface GigabitEthernet1/0/23
- switchport trunk native vlan 1310
- switchport trunk allowed vlan 1302-1308,1310-1313,1319
- switchport mode trunk
+ switchport access vlan 1319
+ switchport mode access
 !
 interface GigabitEthernet1/0/24
  switchport access vlan 1319
@@ -268,25 +293,46 @@ ip ssh authentication-retries 2
 ip ssh version 2
 !
 !
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/dev-mls1.cfg
+!
+!
+!
+!
+radius server radius-ise
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
+ key 7 0523070125444F1F100B10434A
+!
+radius server Radius_Group
 !
 !
 !
 !
 line con 0
  password 7 10660817011F131D050A2D7A65
- login
  stopbits 1
 line aux 0
  stopbits 1
 line vty 0 4
- password 7 062E0E2F4846080F0C19155A4D
- login local
+ password 7 002C120800530A10062F4B1F48
+ authorization exec VTY_author
+ login authentication VTY_authen
+ length 0
  transport input ssh
 line vty 5 15
  password 7 062E0E2F4846080F0C19155A4D
- login local
  transport input ssh
 !
+ntp server 13.9.0.10
 wsma agent exec
  profile httplistener
  profile httpslistener
@@ -312,3 +358,5 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
+
+HW-MLS2#
