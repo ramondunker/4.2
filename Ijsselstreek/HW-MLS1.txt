@@ -1,5 +1,10 @@
+HW-MLS1#show run
+Building configuration...
+
+Current configuration : 7438 bytes
 !
-! Last configuration change at 10:48:19 UTC Thu Jan 20 2022 by beheer
+! Last configuration change at 14:35:10 CET Mon Jan 24 2022 by swen.bergsma
+! NVRAM config last updated at 14:35:13 CET Mon Jan 24 2022 by swen.bergsma
 !
 version 15.2
 no service pad
@@ -24,14 +29,21 @@ vrf definition Mgmt-vrf
 !
 enable secret 5 $1$fDkn$jFU5fxGRgenNCBubMgJWP/
 !
-username beheer password 7 013B070A5F0307192842495858
+username beheer password 7 0523070125444F1F100B10434A
 aaa new-model
 !
 !
-aaa group server radius Radius_Group
+aaa group server radius radius-ise-group
+ server name radius-ise
 !
-aaa authentication login default group Radius_Group local
-aaa authentication login console group Radius_Group local
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
+!
 !
 !
 !
@@ -39,6 +51,7 @@ aaa authentication login console group Radius_Group local
 !
 !
 aaa session-id common
+clock timezone CET 1 0
 switch 1 provision ws-c3650-24ts
 !
 !
@@ -103,6 +116,8 @@ vlan 1313
 vlan 1319
  name Manage-Harderwijk
 !
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 !
 class-map match-any non-client-nrt-class
 !
@@ -138,7 +153,6 @@ interface GigabitEthernet1/0/2
 interface GigabitEthernet1/0/3
  description Trunk HW Vlans richting SW1
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1302-1308,1310-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/4
@@ -177,7 +191,8 @@ interface GigabitEthernet1/0/13
  ip address 192.168.13.1 255.255.255.252
 !
 interface GigabitEthernet1/0/14
- shutdown
+ switchport access vlan 1319
+ switchport mode access
 !
 interface GigabitEthernet1/0/15
  no switchport
@@ -191,7 +206,6 @@ interface GigabitEthernet1/0/17
  shutdown
 !
 interface GigabitEthernet1/0/18
- shutdown
 !
 interface GigabitEthernet1/0/19
  shutdown
@@ -211,6 +225,7 @@ interface GigabitEthernet1/0/22
 interface GigabitEthernet1/0/23
  description Richting firewall (WAN)
  switchport access vlan 1319
+ switchport mode access
 !
 interface GigabitEthernet1/0/24
  switchport access vlan 1311
@@ -281,7 +296,7 @@ interface Vlan1313
 !
 interface Vlan1319
  description Management Harderwijk
- ip address 13.19.0.1 255.255.255.252
+ ip address 13.19.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 router ospf 13
@@ -301,6 +316,7 @@ router ospf 13
  network 13.19.0.0 0.0.0.255 area 13
  network 192.168.0.104 0.0.0.3 area 0
  network 192.168.13.0 0.0.0.3 area 13
+ default-information originate
 !
 ip forward-protocol nd
 ip http server
@@ -313,13 +329,25 @@ ip ssh authentication-retries 2
 ip ssh version 2
 !
 !
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/hw-mls1.cfg
+!
 logging host 13.5.0.10 transport udp port 9002
 !
 !
 !
-radius server DC1
+radius server radius-ise
  address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
- key 7 1231041916030D122325237972
+ key 7 0523070125444F1F100B10434A
 !
 !
 !
@@ -330,12 +358,17 @@ line con 0
 line aux 0
  stopbits 1
 line vty 0 4
- password 7 022E05550F0E0E3745400E4844
+ password 7 002C120800530A10062F4B1F48
+ authorization exec VTY_author
+ login authentication VTY_authen
+ length 0
  transport input ssh
 line vty 5 15
- password 7 1121180B131A0A1A0D242C7569
+ authorization exec VTY_author
+ login authentication VTY_authen
  transport input ssh
 !
+ntp server 13.9.0.10
 wsma agent exec
  profile httplistener
  profile httpslistener
