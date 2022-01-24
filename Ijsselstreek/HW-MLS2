@@ -1,9 +1,9 @@
 HW-MLS2#show run
 Building configuration...
 
-Current configuration : 6628 bytes
+Current configuration : 7100 bytes
 !
-! Last configuration change at 15:12:31 CET Mon Jan 24 2022 by chiel.kroeze
+! Last configuration change at 15:23:58 CET Mon Jan 24 2022 by chiel.kroeze
 ! NVRAM config last updated at 15:00:39 CET Mon Jan 24 2022 by swen.bergsma
 !
 version 15.2
@@ -148,7 +148,9 @@ interface GigabitEthernet1/0/1
 interface GigabitEthernet1/0/2
 !
 interface GigabitEthernet1/0/3
+ description TRUNK RICHTING HW-SW1
  switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/4
@@ -164,7 +166,9 @@ interface GigabitEthernet1/0/8
 interface GigabitEthernet1/0/9
 !
 interface GigabitEthernet1/0/10
+ description TRUNK RICHTING HW-MLS1
  switchport trunk native vlan 1310
+ switchport trunk allowed vlan 1302-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/11
@@ -172,12 +176,14 @@ interface GigabitEthernet1/0/11
 interface GigabitEthernet1/0/12
 !
 interface GigabitEthernet1/0/13
+ description LIJN RICHTING NUN-R1
  no switchport
  ip address 192.168.13.5 255.255.255.252
 !
 interface GigabitEthernet1/0/14
 !
 interface GigabitEthernet1/0/15
+ description LIJN RICHTING EDGE-R2
  no switchport
  ip address 192.168.0.113 255.255.255.252
 !
@@ -214,55 +220,68 @@ interface Vlan1
  no ip address
 !
 interface Vlan1302
- description Gateway 1302
+ description DC/DHCP
  ip address 13.2.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1303
- description Gateway vlan 1303
+ description PROXY/SQUID
  ip address 13.3.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1304
- description Gateway vlan 1304
+ description BACKUP/FILE
  ip address 13.4.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1305
+ description MONITOR/LOGGING
  ip address 13.5.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1306
+ description MOODLE
  ip address 13.6.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1307
+ description EXCHANGE
  ip address 13.7.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1308
+ description WEBSERVER
  ip address 13.8.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1309
+ description NTP/FTP
  ip address 13.9.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1310
+ description NATIVE
  ip address 13.10.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1311
+ description DOCENTEN
  ip address 13.11.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1312
+ description STUDENTEN
  ip address 13.12.0.2 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1313
+ description GASTEN
  ip address 13.13.0.2 255.255.255.0
  ip helper-address 13.2.0.10
+!
+interface Vlan1314
+ description MANAGED
+ no ip address
 !
 interface Vlan1319
  ip address 13.19.0.2 255.255.255.0
