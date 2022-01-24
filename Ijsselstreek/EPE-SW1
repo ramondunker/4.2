@@ -1,9 +1,10 @@
-EPE-SW1#show run
+DEV-SW1#show run
 Building configuration...
 
-Current configuration : 5032 bytes
+Current configuration : 5115 bytes
 !
-! Last configuration change at 12:21:31 CET Fri Jan 21 2022 by beheer
+! Last configuration change at 13:00:43 CET Fri Jan 21 2022 by beheer
+! NVRAM config last updated at 07:00:00 CET Mon Jan 24 2022
 !
 version 15.2
 no service pad
@@ -11,7 +12,7 @@ service timestamps debug datetime msec
 service timestamps log datetime msec
 service password-encryption
 !
-hostname EPE-SW1
+hostname DEV-SW1
 !
 boot-start-marker
 boot-end-marker
@@ -22,8 +23,14 @@ username beheer password 7 10660817011F131D050A2D7A65
 aaa new-model
 !
 !
-aaa authentication login default group radius local
-aaa authorization exec default group radius if-authenticated
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
+!
 !
 !
 !
@@ -44,55 +51,53 @@ vtp mode transparent
 ip domain-name ijsselstreek.uni
 !
 !
-crypto pki trustpoint TP-self-signed-2808334080
+crypto pki trustpoint TP-self-signed-2808328448
  enrollment selfsigned
- subject-name cn=IOS-Self-Signed-Certificate-2808334080
+ subject-name cn=IOS-Self-Signed-Certificate-2808328448
  revocation-check none
- rsakeypair TP-self-signed-2808334080
+ rsakeypair TP-self-signed-2808328448
 !
 !
-crypto pki certificate chain TP-self-signed-2808334080
+crypto pki certificate chain TP-self-signed-2808328448
  certificate self-signed 01
   3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
   31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
-  69666963 6174652D 32383038 33333430 3830301E 170D3933 30333031 30303031
-  33395A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  69666963 6174652D 32383038 33323834 3438301E 170D3933 30333031 32333433
+  30305A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
   4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 38303833
-  33343038 3030819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
-  81008AD5 01D86E89 EF789E75 BC323EAC A00A1F34 42A50F11 2D61345D 289711E0
-  BEB2C6BF C02C5654 5DA28560 5567C9E2 FE54BAE5 E238E53A 0B60399A B5D0E41E
-  D36DB7E5 A6B7ADC5 0C8F8F05 8F4CD84D 5B4F7C1C 212AF009 06F0FBAE 8C5AA9CB
-  495FEAD0 37562E67 59E36512 0F53FBC0 A91799EF 54CB9427 1EE7CF02 D03F3B9A
-  9A0F0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603
-  551D2304 18301680 14D072BC 3A37D8CF 45E3DC6A 13674F61 C40717D2 05301D06
-  03551D0E 04160414 D072BC3A 37D8CF45 E3DC6A13 674F61C4 0717D205 300D0609
-  2A864886 F70D0101 05050003 8181007C BCD132F3 862E183E 14DC98C7 0D67B230
-  2EE7FD62 D1DCB214 AC42E601 2D05CA75 9045CDA4 ED558AF2 DB9D588F ADF01BF3
-  E9581395 24014AB9 EA308506 59B8AA3D 342A2F6A 17C323A0 D4080CCE 2CAAAFA5
-  1C46762C 69F36096 79C305A4 6AC1BB47 F63E4F70 83D0F573 3E346003 85CA3B7E
-  B48B1C37 0AE80637 1F8AB8B0 E4E484
+  32383434 3830819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  8100B3D4 588844D5 34AEB486 636F4FEA F9CBDF86 AE3D269D 7E0390F4 9E3A0385
+  815DEF8E 3C57AED1 1BEBD497 46869548 A67E104E C0104C13 28E33D4B C978A9FD
+  3A41CE99 18341EE1 AB72737F 5773DAE6 2D545321 2ECAC58B A83A1ACC 55130A8B
+  7F68320C D00202BA 88B789F0 DB04EC2E 1ACD54F1 C5C8B91F 139229F2 2285676F
+  2F630203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603
+  551D2304 18301680 149428D0 9C1E1D47 64456721 24DD88D6 D93A68E0 90301D06
+  03551D0E 04160414 9428D09C 1E1D4764 45672124 DD88D6D9 3A68E090 300D0609
+  2A864886 F70D0101 05050003 81810034 816B68A1 33D90936 8AF960D5 66448294
+  1C30436B 63F82BD0 D10C52D5 9B6750FC 13AFF87D FD18F261 3EA8B89E 25765636
+  6732CF4F EAAD47A1 69E51518 17FBB722 B5025BFF F192F6CD 8EE7157C 139890F5
+  4CD0ADE2 65E66C9F EA914651 986912F1 D242EC8B 2CB54CA2 98955893 D604EA64
+  10A00DD6 6ACDC43D F05FDA21 8A0069
   	quit
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
 vlan internal allocation policy ascending
 !
-vlan 2-3,26-27,36-37,46-47,56-57,181-182
+vlan 1810
+ name Native Deventer
 !
-vlan 1820
- name Native Epe
+vlan 1811
+ name Docenten Deventer
 !
-vlan 1821
- name Docenten Epe
+vlan 1812
+ name Studenten Deventer
 !
-vlan 1822
- name Studenten Epe
+vlan 1813
+ name Gasten Deventer
 !
-vlan 1823
- name Gasten Epe
-!
-vlan 1829
- name Management Epe
+vlan 1819
+ name Management Deventer
 !
 !
 !
@@ -100,65 +105,40 @@ vlan 1829
 !
 !
 interface FastEthernet0/1
- switchport trunk native vlan 1820
- switchport trunk allowed vlan 1820-1823,1829
+ switchport trunk native vlan 1810
+ switchport trunk allowed vlan 1810-1813,1819
  switchport mode trunk
 !
 interface FastEthernet0/2
- switchport access vlan 1829
- switchport mode access
+ switchport trunk native vlan 1810
+ switchport trunk allowed vlan 1810-1813,1819
+ switchport mode trunk
 !
 interface FastEthernet0/3
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/4
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/5
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/6
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/7
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/8
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/9
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/10
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/11
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/12
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/13
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/14
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/15
- switchport access vlan 1829
- switchport mode access
 !
 interface FastEthernet0/16
 !
@@ -186,20 +166,25 @@ interface Vlan1
  no ip address
  shutdown
 !
-interface Vlan1820
- ip address 18.20.0.2 255.255.255.0
+interface Vlan1810
+ ip address 18.10.0.3 255.255.255.0
+ ip helper-address 13.2.0.10
 !
-interface Vlan1821
- ip address 18.21.0.2 255.255.255.0
+interface Vlan1811
+ ip address 18.11.0.3 255.255.255.0
+ ip helper-address 13.2.0.10
 !
-interface Vlan1822
- ip address 18.22.0.2 255.255.0.0
+interface Vlan1812
+ ip address 18.12.0.3 255.255.0.0
+ ip helper-address 13.2.0.10
 !
-interface Vlan1823
- ip address 18.23.0.2 255.255.255.0
+interface Vlan1813
+ ip address 18.13.0.3 255.255.255.0
+ ip helper-address 13.2.0.10
 !
-interface Vlan1829
- ip address 18.29.0.2 255.255.255.0
+interface Vlan1819
+ ip address 18.19.0.3 255.255.255.0
+ ip helper-address 13.2.0.10
 !
 ip http server
 ip http secure-server
@@ -209,12 +194,21 @@ ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
 !
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
 kron occurrence ftp-daily-backup at 7:05 recurring
  policy-list ftp-daily-backup
 !
 kron policy-list ftp-daily-wr
  cli write
 !
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/dev-mls1.cfg
+!
+!
+radius server radius-ise
+ key 7 0523070125444F1F100B10434A
 !
 !
 no vstack
@@ -222,7 +216,9 @@ no vstack
 line con 0
  password 7 10660817011F131D050A2D7A65
 line vty 0 4
- password 7 153A0A0200222A32213D327352
+ password 7 002C120800530A10062F4B1F48
+ authorization exec VTY_author
+ login authentication VTY_authen
  length 0
  transport input ssh
 line vty 5 15
@@ -231,3 +227,5 @@ line vty 5 15
 !
 ntp server 13.9.0.10
 end
+
+DEV-SW1#
