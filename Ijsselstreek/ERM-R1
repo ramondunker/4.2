@@ -205,5 +205,3 @@ scheduler allocate 20000 1000
 ntp server 13.9.0.10
 !
 end
-
-ERM-R1#
