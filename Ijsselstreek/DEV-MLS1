@@ -1,9 +1,9 @@
 DEV-MLS1#show run
 Building configuration...
 
-Current configuration : 5711 bytes
+Current configuration : 6136 bytes
 !
-! Last configuration change at 14:38:11 CET Mon Jan 24 2022 by beheer
+! Last configuration change at 17:13:21 CET Mon Jan 24 2022 by chiel.kroeze
 ! NVRAM config last updated at 09:49:05 CET Mon Jan 24 2022 by beheer
 !
 version 15.2
@@ -122,12 +122,14 @@ interface GigabitEthernet0/0
  negotiation auto
 !
 interface GigabitEthernet1/0/1
+ description LIJN RICHTING FIREWALL-DEVENTER
  no switchport
  ip address 18.0.0.2 255.255.255.252
 !
 interface GigabitEthernet1/0/2
 !
 interface GigabitEthernet1/0/3
+ description TRUNK RICHTING DEV-SW1
  switchport trunk native vlan 1810
  switchport trunk allowed vlan 1810-1813,1819
  switchport mode trunk
@@ -145,7 +147,9 @@ interface GigabitEthernet1/0/8
 interface GigabitEthernet1/0/9
 !
 interface GigabitEthernet1/0/10
+ description TRUNK RICHTING DEV-MLS2
  switchport trunk native vlan 1810
+ switchport trunk allowed vlan 1810-1813,1819
  switchport mode trunk
 !
 interface GigabitEthernet1/0/11
@@ -153,12 +157,14 @@ interface GigabitEthernet1/0/11
 interface GigabitEthernet1/0/12
 !
 interface GigabitEthernet1/0/13
+ description LIJN RICHTING EPE-R1
  no switchport
  ip address 192.168.18.1 255.255.255.252
 !
 interface GigabitEthernet1/0/14
 !
 interface GigabitEthernet1/0/15
+ description LIJN RICHTING EDGE-R1
  no switchport
  ip address 192.168.0.110 255.255.255.252
 !
@@ -175,6 +181,7 @@ interface GigabitEthernet1/0/19
 interface GigabitEthernet1/0/20
 !
 interface GigabitEthernet1/0/21
+ description VLAN 1801 ARCHIVED-DATACENTER
  switchport access vlan 1801
  switchport mode trunk
  switchport nonegotiate
@@ -203,25 +210,31 @@ interface Vlan1
  shutdown
 !
 interface Vlan1801
- ip address 10.18.1.2 255.255.255.0
+ description ARCHIVED-DATACENTER
+ no ip address
 !
 interface Vlan1810
+ description VLAN NATIVE
  ip address 18.10.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1811
+ description VLAN DOCENTEN
  ip address 18.11.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1812
+ description VLAN STUDENTEN
  ip address 18.12.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1813
+ description VLAN GASTEN
  ip address 18.13.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1819
+ description VLAN MANAGED
  ip address 18.19.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
