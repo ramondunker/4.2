@@ -1,10 +1,10 @@
 HW-MLS1#show run
 Building configuration...
 
-Current configuration : 7494 bytes
+Current configuration : 7883 bytes
 !
-! Last configuration change at 14:41:28 CET Mon Jan 24 2022 by chiel.kroeze
-! NVRAM config last updated at 14:35:13 CET Mon Jan 24 2022 by swen.bergsma
+! Last configuration change at 15:08:12 CET Mon Jan 24 2022 by chiel.kroeze
+! NVRAM config last updated at 14:45:37 CET Mon Jan 24 2022 by swen.bergsma
 !
 version 15.2
 no service pad
@@ -144,6 +144,7 @@ interface GigabitEthernet0/0
  negotiation auto
 !
 interface GigabitEthernet1/0/1
+ description LIJN richting FIREWALL-HARDERWIJK
  no switchport
  ip address 13.0.0.2 255.255.255.252
 !
@@ -151,9 +152,9 @@ interface GigabitEthernet1/0/2
  shutdown
 !
 interface GigabitEthernet1/0/3
- description Trunk HW Vlans richting SW1
+ description Trunks richting HW-SW1
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1302-1308,1310-1313,1319
+ switchport trunk allowed vlan 1302-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/4
@@ -177,7 +178,7 @@ interface GigabitEthernet1/0/9
 interface GigabitEthernet1/0/10
  description Trunk HW Vlans richting HWMLS2
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1302-1308,1310-1313,1319
+ switchport trunk allowed vlan 1302-1313,1319
  switchport mode trunk
 !
 interface GigabitEthernet1/0/11
@@ -192,10 +193,12 @@ interface GigabitEthernet1/0/13
  ip address 192.168.13.1 255.255.255.252
 !
 interface GigabitEthernet1/0/14
+ description AANSLUITING-TAFEL-LOKAAL
  switchport access vlan 1319
  switchport mode access
 !
 interface GigabitEthernet1/0/15
+ description LIJN-RICHTING-EDGE-R1
  no switchport
  ip address 192.168.0.106 255.255.255.252
  ipv6 enable
@@ -224,8 +227,9 @@ interface GigabitEthernet1/0/22
  shutdown
 !
 interface GigabitEthernet1/0/23
- description Richting firewall (WAN)
+ description AANSLUITING-TAFEL-LOKAAL
  switchport access vlan 1319
+ switchport trunk native vlan 1310
  switchport mode access
 !
 interface GigabitEthernet1/0/24
@@ -245,58 +249,66 @@ interface Vlan1
  shutdown
 !
 interface Vlan1302
+ description Vlan DC/DHCP
  ip address 13.2.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1303
+ description Vlan PROXY/SQUID
  ip address 13.3.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1304
+ description Vlan BACKUP/FILE
  ip address 13.4.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1305
+ description Vlan MONITOR/LOGGING
  ip address 13.5.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1306
+ description Vlan MOODLE
  ip address 13.6.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1307
+ description Vlan EXCHANGE
  ip address 13.7.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1308
+ description Vlan WEBSERVER
  ip address 13.8.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1309
+ description Vlan NTP/FTP
  ip address 13.9.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1310
- description Native Harderwijk
+ description Vlan NATIVE
  ip address 13.10.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1311
- description Docenten Harderwijk
+ description Vlan DOCENTEN
  ip address 13.11.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1312
- description Studenten Harderwijk
+ description Vlan STUDENTEN
  ip address 13.12.0.1 255.255.0.0
 !
 interface Vlan1313
- description Gasten Harderwijk
+ description Vlan GASTEN
  ip address 13.13.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
 interface Vlan1319
- description Management Harderwijk
+ description Vlan MANAGED
  ip address 13.19.0.1 255.255.255.0
  ip helper-address 13.2.0.10
 !
@@ -338,8 +350,10 @@ kron occurrence ftp-daily-backup at 7:05 recurring
 !
 kron policy-list ftp-daily-wr
  cli write
+ cli write
 !
 kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/hw-mls1.cfg
  cli show run | redirect ftp://13.9.0.10/hw-mls1.cfg
 !
 logging host 13.5.0.10 transport udp port 9002
@@ -395,4 +409,3 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
-
