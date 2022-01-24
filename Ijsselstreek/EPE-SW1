@@ -1,9 +1,9 @@
 EPE-SW1#show run
 Building configuration...
 
-Current configuration : 4626 bytes
+Current configuration : 5032 bytes
 !
-! Last configuration change at 01:10:21 UTC Wed Mar 3 1993
+! Last configuration change at 12:21:31 CET Fri Jan 21 2022 by beheer
 !
 version 15.2
 no service pad
@@ -19,7 +19,19 @@ boot-end-marker
 enable secret 5 $1$f3vA$jXpVi.jixy8Zn8oi42eIN/
 !
 username beheer password 7 10660817011F131D050A2D7A65
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+aaa authorization exec default group radius if-authenticated
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone CET 1 0
 system mtu routing 1500
 vtp mode transparent
 !
@@ -59,7 +71,7 @@ crypto pki certificate chain TP-self-signed-2808334080
   E9581395 24014AB9 EA308506 59B8AA3D 342A2F6A 17C323A0 D4080CCE 2CAAAFA5
   1C46762C 69F36096 79C305A4 6AC1BB47 F63E4F70 83D0F573 3E346003 85CA3B7E
   B48B1C37 0AE80637 1F8AB8B0 E4E484
-        quit
+  	quit
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
@@ -191,22 +203,31 @@ interface Vlan1829
 !
 ip http server
 ip http secure-server
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+!
 !
 no vstack
 !
 line con 0
  password 7 10660817011F131D050A2D7A65
- login
 line vty 0 4
  password 7 153A0A0200222A32213D327352
- login local
+ length 0
  transport input ssh
 line vty 5 15
  password 7 153A0A0200222A32213D327352
- login local
  transport input ssh
 !
+ntp server 13.9.0.10
 end
