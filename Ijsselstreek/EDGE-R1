@@ -1,9 +1,9 @@
 EDGE-R1#show run
 Building configuration...
 
-Current configuration : 1708 bytes
+Current configuration : 1824 bytes
 !
-! Last configuration change at 16:56:30 UTC Fri Jan 21 2022
+! Last configuration change at 23:49:10 UTC Mon Jan 24 2022 by beheer
 !
 version 15.4
 service timestamps debug datetime msec
@@ -71,16 +71,19 @@ interface Embedded-Service-Engine0/0
  shutdown
 !
 interface GigabitEthernet0/0
+ description LIJN RICHTING HW-MLS1
  ip address 192.168.0.105 255.255.255.252
  duplex auto
  speed auto
 !
 interface GigabitEthernet0/1
+ description LIJN RICHTING DEV-MLS1
  ip address 192.168.0.109 255.255.255.252
  duplex auto
  speed auto
 !
 interface Serial0/0/0
+ description LIJN RICHTING EDGE-R2
  ip address 192.168.0.101 255.255.255.252
 !
 interface Serial0/0/1
