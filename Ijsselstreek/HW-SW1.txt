@@ -1,9 +1,10 @@
 HW-SW1#show run
 Building configuration...
 
-Current configuration : 4144 bytes
+Current configuration : 5295 bytes
 !
-! Last configuration change at 02:56:00 UTC Tue Mar 2 1993
+! Last configuration change at 15:02:33 CET Mon Jan 24 2022 by chiel.kroeze
+! NVRAM config last updated at 11:09:41 CET Mon Jan 24 2022 by beheer
 !
 version 15.2
 no service pad
@@ -19,7 +20,28 @@ boot-end-marker
 enable secret 5 $1$f3vA$jXpVi.jixy8Zn8oi42eIN/
 !
 username beheer password 7 10660817011F131D050A2D7A65
-no aaa new-model
+aaa new-model
+!
+!
+aaa group server radius radius-ise-group
+ server name radius-ise
+!
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone CET 1 0
 system mtu routing 1500
 vtp mode transparent
 !
@@ -59,7 +81,7 @@ crypto pki certificate chain TP-self-signed-2808328448
   6732CF4F EAAD47A1 69E51518 17FBB722 B5025BFF F192F6CD 8EE7157C 139890F5
   4CD0ADE2 65E66C9F EA914651 986912F1 D242EC8B 2CB54CA2 98955893 D604EA64
   10A00DD6 6ACDC43D F05FDA21 8A0069
-        quit
+  	quit
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
@@ -87,12 +109,12 @@ vlan 1319
 !
 interface FastEthernet0/1
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1310-1313,1319
+ switchport trunk allowed vlan 1302-1313,1319
  switchport mode trunk
 !
 interface FastEthernet0/2
  switchport trunk native vlan 1310
- switchport trunk allowed vlan 1310-1313,1319
+ switchport trunk allowed vlan 1302-1313,1319
  switchport mode trunk
 !
 interface FastEthernet0/3
@@ -138,6 +160,8 @@ interface FastEthernet0/22
 interface FastEthernet0/23
 !
 interface FastEthernet0/24
+ switchport access vlan 1319
+ switchport mode access
 !
 interface GigabitEthernet0/1
 !
@@ -149,42 +173,64 @@ interface Vlan1
 !
 interface Vlan1310
  ip address 13.10.0.3 255.255.255.0
- ip helper-address 13.2.0.10
+ ip helper-address 13.2.0.12
 !
 interface Vlan1311
  ip address 13.11.0.3 255.255.255.0
- ip helper-address 13.2.0.10
+ ip helper-address 13.2.0.12
 !
 interface Vlan1312
  ip address 13.12.0.3 255.255.0.0
- ip helper-address 13.2.0.10
+ ip helper-address 13.2.0.12
 !
 interface Vlan1313
  ip address 13.13.0.3 255.255.255.0
- ip helper-address 13.2.0.10
+ ip helper-address 13.2.0.12
 !
 interface Vlan1319
  ip address 13.19.0.3 255.255.255.0
- ip helper-address 13.2.0.10
+ ip helper-address 13.2.0.12
 !
 ip http server
 ip http secure-server
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 ip ssh time-out 60
 ip ssh authentication-retries 2
-ip ssh version 2
+!
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/hw-sw1.cfg
+!
+!
+radius server radius-ise
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
+ key 7 0523070125444F1F100B10434A
+!
 !
 no vstack
 !
 line con 0
  password 7 10660817011F131D050A2D7A65
- login
 line vty 0 4
- password 7 153A0A0200222A32213D327352
- login local
+ password 7 002C120800530A10062F4B1F48
+ authorization exec VTY_author
+ login authentication VTY_authen
+ length 0
  transport input ssh
 line vty 5 15
  password 7 153A0A0200222A32213D327352
- login local
  transport input ssh
 !
+ntp server 13.9.0.10
 end
+
+HW-SW1#
