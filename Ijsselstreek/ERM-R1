@@ -1,9 +1,10 @@
 ERM-R1#show run
 Building configuration...
 
-Current configuration : 2834 bytes
+Current configuration : 3865 bytes
 !
-! Last configuration change at 10:00:57 UTC Thu Jan 20 2022
+! Last configuration change at 12:43:00 CET Fri Jan 21 2022 by beheer
+! NVRAM config last updated at 07:00:01 CET Mon Jan 24 2022
 !
 version 15.4
 service timestamps debug datetime msec
@@ -18,7 +19,24 @@ boot-end-marker
 !
 enable secret 5 $1$Mchi$2OhthWgHsSEmAvSKj4j8o/
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone CET 1 0
 !
 !
 !
@@ -56,6 +74,8 @@ redundancy
 !
 !
 !
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
@@ -137,6 +157,24 @@ no ip http server
 no ip http secure-server
 !
 !
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/dev-mls1.cfg
+!
+!
+!
+!
+radius server radius-ise
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
+ key 7 0523070125444F1F100B10434A
 !
 !
 !
@@ -146,7 +184,6 @@ control-plane
 !
 line con 0
  password 7 08094D400D1104011B050B556B
- login
 line aux 0
 line 2
  no activation-character
@@ -155,14 +192,18 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- password 7 022E05550F0E0E3745400E4844
- login local
+ password 7 002C120800530A10062F4B1F48
+ authorization exec VTY_author
+ login authentication VTY_authen
+ length 0
  transport input ssh
 line vty 5 15
  password 7 022E05550F0E0E3745400E4844
- login local
  transport input ssh
 !
 scheduler allocate 20000 1000
+ntp server 13.9.0.10
 !
 end
+
+ERM-R1#
