@@ -1,10 +1,10 @@
 DEV-MLS2#show run
 Building configuration...
 
-*Jan 20 10:56:41.033: %SYS-5-CONFIG_I: Configured from console by console
-Current configuration : 4261 bytes
+Current configuration : 4922 bytes
 !
-! Last configuration change at 10:56:41 UTC Thu Jan 20 2022
+! Last configuration change at 14:49:15 CET Mon Jan 24 2022 by beheer
+! NVRAM config last updated at 14:49:16 CET Mon Jan 24 2022 by beheer
 !
 version 15.2
 no service pad
@@ -30,7 +30,19 @@ vrf definition Mgmt-vrf
 enable secret 5 $1$TKUq$i2yrZiXO.EW9MDsXGP3rk0
 !
 username beheer password 7 0523070125444F1F100B10434A
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+aaa authorization exec default group radius if-authenticated
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone CET 1 0
 switch 1 provision ws-c3650-24ts
 !
 !
@@ -71,6 +83,8 @@ vlan 1813
 vlan 1819
  name Manage-Deventer
 !
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 !
 class-map match-any non-client-nrt-class
 !
@@ -151,9 +165,6 @@ interface GigabitEthernet1/0/21
 interface GigabitEthernet1/0/22
 !
 interface GigabitEthernet1/0/23
- switchport trunk native vlan 1810
- switchport trunk allowed vlan 1810-1813,1819
- switchport mode trunk
 !
 interface GigabitEthernet1/0/24
  switchport access vlan 1819
@@ -209,25 +220,40 @@ ip ssh authentication-retries 2
 ip ssh version 2
 !
 !
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/dev-mls1.cfg
+ cli show run | redirect ftp://13.9.0.10/dev-mls2.cfg
+!
+!
+!
+radius-server host 13.2.0.10 auth-port 1812 acct-port 1813 key 7 0523070125444F1F100B10434A
 !
 !
 !
 !
 line con 0
  password 7 10660817011F131D050A2D7A65
- login
  stopbits 1
 line aux 0
  stopbits 1
 line vty 0 4
  password 7 062E0E2F4846080F0C19155A4D
- login local
+ length 0
  transport input ssh
 line vty 5 15
  password 7 062E0E2F4846080F0C19155A4D
- login local
  transport input ssh
 !
+ntp server 13.9.0.10
 wsma agent exec
  profile httplistener
  profile httpslistener
@@ -254,3 +280,4 @@ wsma profile listener httpslistener
 ap group default-group
 end
 
+DEV-MLS2#
