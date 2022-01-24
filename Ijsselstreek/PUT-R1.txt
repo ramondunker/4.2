@@ -1,8 +1,10 @@
+PUT-R1#show run
 Building configuration...
 
-Current configuration : 2733 bytes
+Current configuration : 3902 bytes
 !
-! Last configuration change at 19:16:01 UTC Thu Jan 20 2022
+! Last configuration change at 11:22:03 CET Mon Jan 24 2022 by beheer
+! NVRAM config last updated at 11:22:05 CET Mon Jan 24 2022 by beheer
 !
 version 15.4
 service timestamps debug datetime msec
@@ -17,12 +19,32 @@ boot-end-marker
 !
 enable secret 5 $1$gMbe$ZIc1scWJddK9lzFhh2l/R/
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa group server radius radius-ise-group
+ server name radius-ise
+!
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
 !
 !
 !
 !
-!         
+!
+!
+aaa session-id common
+clock timezone CET 1 0
+!
+!
+!
+!
+!
 !
 !
 !
@@ -53,10 +75,12 @@ redundancy
 !
 !
 !
+ip ftp username ftp_switches
+ip ftp password 7 08094D400D1104011B050B556B
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
-! 
+!
 !
 !
 !
@@ -68,7 +92,7 @@ ip ssh version 2
 !
 interface Embedded-Service-Engine0/0
  no ip address
- shutdown 
+ shutdown
 !
 interface GigabitEthernet0/0
  ip address 192.168.13.2 255.255.255.252
@@ -91,7 +115,7 @@ interface GigabitEthernet0/1.1321
  encapsulation dot1Q 1321
  ip address 13.21.0.1 255.255.255.0
  ip helper-address 13.2.0.10
-!         
+!
 interface GigabitEthernet0/1.1322
  description Subint 1322 PUT Studenten
  encapsulation dot1Q 1322
@@ -122,11 +146,13 @@ interface Serial0/0/1
 router ospf 13
  network 13.20.0.0 0.0.0.255 area 13
  network 13.21.0.0 0.0.0.255 area 13
- network 13.22.0.0 0.0.255.255 area 13
+ network 13.22.0.0 0.0.0.255 area 13
  network 13.23.0.0 0.0.0.255 area 13
  network 13.29.0.0 0.0.0.255 area 13
  network 192.168.13.0 0.0.0.3 area 13
  network 192.168.13.8 0.0.0.3 area 13
+!
+router ospf 1
 !
 ip forward-protocol nd
 !
@@ -134,6 +160,25 @@ no ip http server
 no ip http secure-server
 !
 !
+ip radius source-interface GigabitEthernet0/0
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/dev-mls1.cfg
+!
+!
+!
+!
+radius server radius-ise
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
+ key 7 0523070125444F1F100B10434A
 !
 !
 !
@@ -143,7 +188,6 @@ control-plane
 !
 line con 0
  password 7 09644F071D0D16040202037B6A
- login
 line aux 0
 line 2
  no activation-character
@@ -152,14 +196,16 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- password 7 1231041916030D122325237972
- login local
+ password 7 002C120800530A10062F4B1F48
+ authorization exec VTY_author
+ login authentication VTY_authen
+ length 0
  transport input ssh
 line vty 5 15
  password 7 1231041916030D122325237972
- login local
  transport input ssh
 !
 scheduler allocate 20000 1000
+ntp server 13.9.0.10
 !
 end
