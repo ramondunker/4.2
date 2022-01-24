@@ -78,7 +78,7 @@ crypto pki certificate chain TP-self-signed-1631838080
   DFA930F6 506F38A7 20A1ED86 63CE1CF9 CFD51BA9 230C37E8 3A4F791B D96B022E
   6389E2D9 EBB2CE4A 484DDE54 FD4C7C4D 15272620 4FC2FE39 0685C367 3ECCEE21
   D6DF1909 BCEFBCA4 CFA133B7 9BE7FB
-  	quit
+        quit
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
@@ -223,4 +223,3 @@ line vty 5 15
 ntp server 13.9.0.10
 end
 
-ERM-SW1#
