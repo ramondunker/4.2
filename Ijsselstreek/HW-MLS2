@@ -1,9 +1,9 @@
 HW-MLS2#show run
 Building configuration...
 
-Current configuration : 6602 bytes
+Current configuration : 6628 bytes
 !
-! Last configuration change at 15:00:36 CET Mon Jan 24 2022 by swen.bergsma
+! Last configuration change at 15:12:31 CET Mon Jan 24 2022 by chiel.kroeze
 ! NVRAM config last updated at 15:00:39 CET Mon Jan 24 2022 by swen.bergsma
 !
 version 15.2
@@ -97,6 +97,9 @@ vlan 1307
 !
 vlan 1308
  name IJSS-WEB
+!
+vlan 1309
+ name NTP/FTP
 !
 vlan 1310
  name Native-Harderwijk
@@ -358,5 +361,3 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
-
-HW-MLS2#
