@@ -1,9 +1,9 @@
 PUT-SW1#show run
 Building configuration...
 
-Current configuration : 12764 bytes
+Current configuration : 12756 bytes
 !
-! Last configuration change at 13:05:45 CET Mon Jan 24 2022 by niels.akkerman
+! Last configuration change at 14:43:32 CET Mon Jan 24 2022 by swen.bergsma
 ! NVRAM config last updated at 13:06:17 CET Mon Jan 24 2022 by niels.akkerman
 !
 version 15.2
@@ -28,7 +28,7 @@ aaa group server radius radius-ise-group
 !
 aaa authentication login default none
 aaa authentication login VTY_authen group radius-ise-group local
-aaa authentication dot1x default group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group
 aaa authorization exec default none
 aaa authorization exec VTY_author group radius-ise-group local
 aaa accounting dot1x default start-stop group radius-ise-group
@@ -82,7 +82,7 @@ crypto pki certificate chain TP-self-signed-2808336384
   55E805DB C2679F35 8EA72BD9 DC5B5D80 06CED031 D14E8FE4 A652C98B 0639A290
   22CDA30B 803D780C 6F032A0A 2AC34239 F3CD0D90 7690EB9A A4F12825 A585CA7C
   228A37E9 00A7A092 478466FD A7B115
-        quit
+  	quit
 dot1x system-auth-control
 spanning-tree mode pvst
 spanning-tree extend system-id
@@ -479,3 +479,5 @@ line vty 5 15
 !
 ntp server 13.9.0.10
 end
+
+PUT-SW1#
