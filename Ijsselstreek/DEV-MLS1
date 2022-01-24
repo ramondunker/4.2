@@ -1,9 +1,10 @@
-DEV-MLS1#show running-config 
+DEV-MLS1#show run
 Building configuration...
 
-Current configuration : 4595 bytes
+Current configuration : 5711 bytes
 !
-! Last configuration change at 10:56:08 UTC Thu Jan 20 2022 by beheer
+! Last configuration change at 14:38:11 CET Mon Jan 24 2022 by beheer
+! NVRAM config last updated at 09:49:05 CET Mon Jan 24 2022 by beheer
 !
 version 15.2
 no service pad
@@ -29,276 +30,28 @@ vrf definition Mgmt-vrf
 enable secret 5 $1$TKUq$i2yrZiXO.EW9MDsXGP3rk0
 !
 username beheer password 7 0523070125444F1F100B10434A
-no aaa new-model
-switch 1 provision ws-c3650-24ts
+aaa new-model
 !
 !
+aaa group server radius radius-ise-group
+ server name radius-ise
 !
+aaa authentication login default none
+aaa authentication login VTY_authen group radius-ise-group local
+aaa authentication dot1x default group radius-ise-group local
+aaa authorization exec default none
+aaa authorization exec VTY_author group radius-ise-group local
+aaa accounting dot1x default start-stop group radius-ise-group
+aaa accounting exec default
 !
 !
-ip routing
 !
-ip domain-name ijsselstreek.uni
 !
 !
-qos queue-softmax-multiplier 100
-vtp mode transparent
 !
 !
-diagnostic bootup level minimal
-spanning-tree mode pvst
-spanning-tree extend system-id
-hw-switch switch 1 logging onboard message level 3
-!
-redundancy
- mode sso
-!
-!
-vlan 1801
- name Archived_Datacenter
-!
-vlan 1810
- name Native-Deventer
-!
-vlan 1811
- name Docenten-Deventer
-!
-vlan 1812
- name Studenten-Deventer
-!
-vlan 1813
- name Gasten-Harderwijk
-!
-vlan 1819 
- name Manage-Harderwijk
-!
-ip ftp username ftp_switches
-ip ftp password 7 08094D400D1104011B050B556B
-!
-class-map match-any non-client-nrt-class
-!
-policy-map port_child_policy
- class non-client-nrt-class
-  bandwidth remaining ratio 10
-!
-! 
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!         
-!
-interface GigabitEthernet0/0
- vrf forwarding Mgmt-vrf
- no ip address
- negotiation auto
-!
-interface GigabitEthernet1/0/1
- no switchport
- ip address 18.0.0.2 255.255.255.252
-!
-interface GigabitEthernet1/0/2
-!
-interface GigabitEthernet1/0/3
- switchport trunk native vlan 1810
- switchport trunk allowed vlan 1810-1813,1819
- switchport mode trunk
-!
-interface GigabitEthernet1/0/4
-!
-interface GigabitEthernet1/0/5
-!
-interface GigabitEthernet1/0/6
-!         
-interface GigabitEthernet1/0/7
-!
-interface GigabitEthernet1/0/8
-!
-interface GigabitEthernet1/0/9
-!
-interface GigabitEthernet1/0/10
- switchport trunk native vlan 1810
- switchport mode trunk
-!
-interface GigabitEthernet1/0/11
-!
-interface GigabitEthernet1/0/12
-!
-interface GigabitEthernet1/0/13
- no switchport
- ip address 192.168.18.1 255.255.255.252
-!
-interface GigabitEthernet1/0/14
-!
-interface GigabitEthernet1/0/15
- no switchport
- ip address 192.168.0.110 255.255.255.252
-!
-interface GigabitEthernet1/0/16
-!
-interface GigabitEthernet1/0/17
-!
-interface GigabitEthernet1/0/18
-!
-interface GigabitEthernet1/0/19
-!
-interface GigabitEthernet1/0/20
-!
-interface GigabitEthernet1/0/21
- switchport access vlan 1801
- switchport mode trunk
- switchport nonegotiate
-!
-interface GigabitEthernet1/0/22
-!
-interface GigabitEthernet1/0/23
- switchport trunk native vlan 1810
- switchport trunk allowed vlan 1810-1813,1819
- switchport mode trunk
-!         
-interface GigabitEthernet1/0/24
- switchport access vlan 1811
- switchport mode access
-!
-interface GigabitEthernet1/1/1
-!
-interface GigabitEthernet1/1/2
-!
-interface GigabitEthernet1/1/3
-!
-interface GigabitEthernet1/1/4
-!
-interface Vlan1
- no ip address
- shutdown
-!
-interface Vlan1801
- ip address 10.18.1.2 255.255.255.0
-!
-interface Vlan1810
- ip address 18.10.0.1 255.255.255.0
- ip helper-address 13.2.0.10
-!         
-interface Vlan1811
- ip address 18.11.0.1 255.255.255.0
- ip helper-address 13.2.0.10
-!
-interface Vlan1812
- ip address 18.12.0.1 255.255.255.0
- ip helper-address 13.2.0.10
-!
-interface Vlan1813
- ip address 18.13.0.1 255.255.255.0
- ip helper-address 13.2.0.10
-!
-interface Vlan1819
- ip address 18.19.0.1 255.255.255.0
- ip helper-address 13.2.0.10
-!
-router ospf 18
- network 18.0.0.0 0.0.0.3 area 18
- network 18.10.0.0 0.0.0.255 area 18
- network 18.11.0.0 0.0.0.255 area 18
- network 18.12.0.0 0.0.255.255 area 18
- network 18.13.0.0 0.0.0.255 area 18
- network 18.19.0.0 0.0.0.255 area 18
- network 192.168.0.108 0.0.0.3 area 0
- network 192.168.18.0 0.0.0.3 area 18
-!
-ip forward-protocol nd
-ip http server
-ip http authentication local
-ip http secure-server
-!
-ip route 0.0.0.0 0.0.0.0 18.0.0.1
-ip ssh time-out 60
-ip ssh authentication-retries 2
-ip ssh version 2
-!
-!
-!
-!
-!
-!
-line con 0
- password 7 10660817011F131D050A2D7A65
- login
- stopbits 1
-line aux 0
- stopbits 1
-line vty 0 4
- password 7 062E0E2F4846080F0C19155A4D
- login local
- transport input ssh
-line vty 5 15
- password 7 062E0E2F4846080F0C19155A4D
- login local
- transport input ssh
-!
-wsma agent exec
- profile httplistener
- profile httpslistener
-!
-wsma agent config
- profile httplistener
- profile httpslistener
-!
-wsma agent filesys
- profile httplistener
- profile httpslistener
-!
-wsma agent notify
- profile httplistener
- profile httpslistener
-!
-!
-wsma profile listener httplistener
- transport http
-!
-wsma profile listener httpslistener
- transport https
-!
-ap group default-group
-end
-
-DEV-MLS1#show running-config 
-Building configuration...
-
-Current configuration : 4595 bytes
-!
-! Last configuration change at 10:56:08 UTC Thu Jan 20 2022 by beheer
-!
-version 15.2
-no service pad
-service timestamps debug datetime msec
-service timestamps log datetime msec
-service password-encryption
-service compress-config
-!
-hostname DEV-MLS1
-!
-boot-start-marker
-boot-end-marker
-!
-!
-vrf definition Mgmt-vrf
- !
- address-family ipv4
- exit-address-family
- !
- address-family ipv6
- exit-address-family
-!
-enable secret 5 $1$TKUq$i2yrZiXO.EW9MDsXGP3rk0
-!
-username beheer password 7 0523070125444F1F100B10434A
-no aaa new-model
+aaa session-id common
+clock timezone CET 1 0
 switch 1 provision ws-c3650-24ts
 !
 !
@@ -350,7 +103,6 @@ policy-map port_child_policy
  class non-client-nrt-class
   bandwidth remaining ratio 10
 !
-! 
 !
 !
 !
@@ -362,7 +114,8 @@ policy-map port_child_policy
 !
 !
 !
-!         
+!
+!
 interface GigabitEthernet0/0
  vrf forwarding Mgmt-vrf
  no ip address
@@ -408,8 +161,10 @@ interface GigabitEthernet1/0/14
 interface GigabitEthernet1/0/15
  no switchport
  ip address 192.168.0.110 255.255.255.252
-!         
+!
 interface GigabitEthernet1/0/16
+ switchport access vlan 1819
+ switchport mode access
 !
 interface GigabitEthernet1/0/17
 !
@@ -471,6 +226,7 @@ interface Vlan1819
  ip helper-address 13.2.0.10
 !
 router ospf 18
+ network 10.18.1.0 0.0.0.255 area 18
  network 18.0.0.0 0.0.0.3 area 18
  network 18.10.0.0 0.0.0.255 area 18
  network 18.11.0.0 0.0.0.255 area 18
@@ -491,25 +247,44 @@ ip ssh authentication-retries 2
 ip ssh version 2
 !
 !
+kron occurrence ftp-daily-wr at 7:00 recurring
+ policy-list ftp-daily-wr
+!
+kron occurrence ftp-daily-backup at 7:05 recurring
+ policy-list ftp-daily-backup
+!
+kron policy-list ftp-daily-wr
+ cli write
+!
+kron policy-list ftp-daily-backup
+ cli show run | redirect ftp://13.9.0.10/dev-mls1.cfg
+!
+!
+!
+!
+radius server radius-ise
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
+ key 7 04730A080B294D580017024653
 !
 !
 !
 !
 line con 0
  password 7 10660817011F131D050A2D7A65
- login
  stopbits 1
 line aux 0
  stopbits 1
 line vty 0 4
- password 7 062E0E2F4846080F0C19155A4D
- login local
+ password 7 072720424A0118131E1C0C5D45
+ authorization exec VTY_author
+ login authentication VTY_authen
+ length 0
  transport input ssh
 line vty 5 15
  password 7 062E0E2F4846080F0C19155A4D
- login local
  transport input ssh
 !
+ntp server 13.9.0.10
 wsma agent exec
  profile httplistener
  profile httpslistener
@@ -535,3 +310,5 @@ wsma profile listener httpslistener
 !
 ap group default-group
 end
+
+DEV-MLS1#
