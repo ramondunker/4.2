@@ -128,5 +128,3 @@ line vty 5 15
 scheduler allocate 20000 1000
 !
 end
-
-EDGE-R1#
