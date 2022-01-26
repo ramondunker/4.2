@@ -1,0 +1,15 @@
+$userCredential = Get-Credential
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://IJSS-MAIL.ijsselstreek.uni/PowerShell/ -Authentication Kerberos -Credential $userCredential
+Import-PSSession $Session -DisableNameChecking
+Add-PSSnapin "Microsoft.exchange.Management.PowerShell.E2010"
+
+
+Add-Type -AssemblyName System.Windows.Forms
+$FileBrowser = New-Object System.Windows.Forms.OpenFileDialog -Property @{ InitialDirectory = [Environment]::GetFolderPath('Desktop')}
+[void]$FileBrowser.ShowDialog()
+
+$path = $Filebrowser.FileName
+
+Import-Csv $path | ForEach-Object{
+Enable-Mailbox -Identity $_.username
+}
