@@ -1,15 +1,13 @@
-EPE-R1#show run
-Building configuration...
-
-Current configuration : 4232 bytes
+Current configuration : 4333 bytes
 !
-! Last configuration change at 17:26:01 CET Mon Jan 24 2022 by beheer
-! NVRAM config last updated at 15:37:25 CET Mon Jan 24 2022 by beheer
+! Last configuration change at 18:15:19 CET Wed Jan 26 2022 by stijn.visscher
+! NVRAM config last updated at 13:28:34 CET Thu Jan 27 2022 by niels.akkerman
 !
 version 15.4
-service timestamps debug datetime msec
-service timestamps log datetime msec
+service timestamps debug datetime msec localtime show-timezone year
+service timestamps log datetime msec localtime show-timezone year
 service password-encryption
+service sequence-numbers
 !
 hostname EPE-R1
 !
@@ -28,8 +26,8 @@ aaa group server radius radius-ise-group
 aaa authentication login default none
 aaa authentication login VTY_authen group radius-ise-group local
 aaa authentication dot1x default group radius-ise-group local
-aaa authorization exec default none
-aaa authorization exec VTY_author group radius-ise-group local
+aaa authorization exec default none 
+aaa authorization exec VTY_author group radius-ise-group local 
 aaa accounting dot1x default start-stop group radius-ise-group
 aaa accounting exec default
 !
@@ -54,6 +52,7 @@ clock timezone CET 1 0
 !
 !
 !
+ip dhcp snooping
 ip domain name ijsselstreek.uni
 ip cef
 no ipv6 cef
@@ -82,7 +81,7 @@ ip ftp password 7 08094D400D1104011B050B556B
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
-!
+! 
 !
 !
 !
@@ -172,7 +171,7 @@ no ip http server
 no ip http secure-server
 !
 !
-ip radius source-interface GigabitEthernet0/0
+ip radius source-interface GigabitEthernet0/0 
 kron occurrence ftp-daily-wr at 7:00 recurring
  policy-list ftp-daily-wr
 !
@@ -185,11 +184,12 @@ kron policy-list ftp-daily-wr
 kron policy-list ftp-daily-backup
  cli show run | redirect ftp://13.9.0.10/EPE-R1.cfg
 !
+logging host 13.5.0.11
 !
 !
-radius-server host 13.2.0.10 auth-port 1812 acct-port 1813 key 7 0523070125444F1F100B10434A
 !
 radius server radius-ise
+ address ipv4 13.2.0.10 auth-port 1812 acct-port 1813
  key 7 0523070125444F1F100B10434A
 !
 !
