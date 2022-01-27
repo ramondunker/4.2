@@ -1,15 +1,14 @@
-NUN-R1#show run
-Building configuration...
 
-Current configuration : 4121 bytes
+Current configuration : 4242 bytes
 !
-! Last configuration change at 12:04:32 CET Mon Jan 24 2022 by beheer
-! NVRAM config last updated at 12:01:56 CET Mon Jan 24 2022 by beheer
+! Last configuration change at 17:37:37 CET Wed Jan 26 2022 by niels.akkerman
+! NVRAM config last updated at 07:00:01 CET Thu Jan 27 2022
 !
 version 15.4
-service timestamps debug datetime msec
-service timestamps log datetime msec
+service timestamps debug datetime msec localtime show-timezone year
+service timestamps log datetime msec localtime show-timezone year
 service password-encryption
+service sequence-numbers
 !
 hostname NUN-R1
 !
@@ -28,8 +27,8 @@ aaa group server radius radius-ise-group
 aaa authentication login default none
 aaa authentication login VTY_authen group radius-ise-group local
 aaa authentication dot1x default group radius-ise-group local
-aaa authorization exec default none
-aaa authorization exec VTY_author group radius-ise-group local
+aaa authorization exec default none 
+aaa authorization exec VTY_author group radius-ise-group local 
 aaa accounting dot1x default start-stop group radius-ise-group
 aaa accounting exec default
 !
@@ -54,6 +53,7 @@ clock timezone CET 1 0
 !
 !
 !
+ip dhcp snooping
 ip domain name ijsselstreek.uni
 ip cef
 no ipv6 cef
@@ -82,7 +82,7 @@ ip ftp password 7 08094D400D1104011B050B556B
 ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh version 2
-!
+! 
 !
 !
 !
@@ -169,7 +169,7 @@ ip http server
 ip http secure-server
 !
 !
-ip radius source-interface GigabitEthernet0/0
+ip radius source-interface GigabitEthernet0/0 
 kron occurrence ftp-daily-wr at 7:00 recurring
  policy-list ftp-daily-wr
 !
@@ -182,6 +182,7 @@ kron policy-list ftp-daily-wr
 kron policy-list ftp-daily-backup
  cli show run | redirect ftp://13.9.0.10/NUN-R1.cfg
 !
+logging host 13.5.0.11
 !
 !
 !
